@@ -16,16 +16,23 @@ public class Player : MonoBehaviour {
     [Header("Movement")]
 
     [SerializeField] float moveSpeed;
+    Vector3 movement;
+    //bool running;
+
+
+    [Header("Jumping")]
+
     [SerializeField] float jumpForce;
     [SerializeField] float jumpCooldown;
-
-    Vector3 movement;
     bool readyToJump;
-    //bool IsFalling;
 
-    float horizontalInput;
-    float verticalInput;
-    bool running;
+
+    [Header("Crouching")]
+
+    [SerializeField] float crouchSpeed;
+    [SerializeField] float crouchYScale;
+    float startYScale;
+    bool crouching;
 
 
     [Header("GroundCheck")]
@@ -33,11 +40,13 @@ public class Player : MonoBehaviour {
     [SerializeField] float playerHeight;
     [SerializeField] LayerMask floor;
     bool grounded;
+    //bool IsFalling;
 
 
     private void Start() {
 
         rb = GetComponent<Rigidbody>();
+        startYScale = transform.localScale.y;
         rb.freezeRotation = true;
         readyToJump = true;
         //IsFalling = true;
@@ -61,33 +70,61 @@ public class Player : MonoBehaviour {
 
     void MyInput() {
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        running = Input.GetButton("Crouch");
+        movement.x = Input.GetAxisRaw("Horizontal");
 
 
         //when to jump
-        if (Input.GetButton("Jump") && readyToJump && grounded) {
+        if (Input.GetKeyDown( KeyCode.W ) && readyToJump && grounded) {
 
             readyToJump = false;
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+        if (Input.GetKey(KeyCode.S) && grounded) {
+
+            Crouch();
+        }
+        if (Input.GetKeyUp(KeyCode.S)) {
+
+            StandUp();
+        }
+    }
+
+
+    void Crouch() {
+
+        transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        crouching = true;
+    }
+
+
+    void StandUp() {
+
+        transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        crouching = false;
     }
 
 
     void MovePlayer() {
 
-        if (running) {
+        if (crouching) {
 
-            rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
+            rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
         }
-
         else {
 
             rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
         }
+
+        /*
+        if (running) {
+
+            rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
+        }
+        */
     }
 
 

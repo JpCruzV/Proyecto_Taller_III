@@ -107,6 +107,10 @@ public class Player : MonoBehaviour {
 
             FireballThrow();
         }
+        else if (Input.GetKey(KeyCode.O) && readyToUse && grounded) {
+
+            CreateExplosionCircle();
+        }
     }
 
 
@@ -287,7 +291,7 @@ public class Player : MonoBehaviour {
 
 
 
-    void createExplosionCircle() {
+    void CreateExplosionCircle() {
 
         readyToUse = false;
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);

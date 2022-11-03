@@ -5,6 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 
+
+    //[Header("Anims")]
+
+    //[SerializeField] Animator anim;
+
+
+
     private void Start() {
 
         rb = GetComponent<Rigidbody>();
@@ -58,16 +65,22 @@ public class Player : MonoBehaviour {
         }
 
 
-        //Moving Backwards
-        if (Input.GetKeyDown(KeyCode.A) && facingRight) {
+        //Moving Backwards and dashing
+        if (Input.GetKeyDown(KeyCode.A) && facingRight || Input.GetKeyDown(KeyCode.D) && !facingRight) {
 
             backwards = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && !facingRight) {
 
-            backwards = true;
-        }
+            if (ButtonCooler > 0 && ButtonCount == 1) {
 
+                BackDash();
+            }
+            else {
+
+                ButtonCooler = 0.2f;
+                ButtonCount++;
+            }
+        }
+        
 
         //Jump
         if (Input.GetKey(KeyCode.W) && readyToJump && grounded) {
@@ -121,14 +134,10 @@ public class Player : MonoBehaviour {
     Rigidbody rb;
 
 
-    //[Header("Anims")]
-
-    //[SerializeField] Animator anim;
-
-
     [Header("Movement")]
 
     [SerializeField] float moveSpeed;
+    [SerializeField] float backDashForce;
     [SerializeField] GameObject otherPlayer;
     Vector3 movement;
     bool running;
@@ -182,6 +191,14 @@ public class Player : MonoBehaviour {
 
             rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
         }
+    }
+
+
+
+    void BackDash() {
+
+        Vector3 backDashDir = transform.right * -backDashForce + transform.up * 1.5f;
+        rb.AddForce(backDashDir, ForceMode.Impulse);
     }
 
 
@@ -240,7 +257,7 @@ public class Player : MonoBehaviour {
 
     [Header("Attacks references")]
 
-    [SerializeField] Transform fireballAttackPoint;
+    [SerializeField] Transform attackPoint;
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] Transform explosionCircleAttackPoint;
     [SerializeField] GameObject explosionCirclePrefab;
@@ -248,15 +265,15 @@ public class Player : MonoBehaviour {
 
     [Header("Fireball variables")]
 
-    [SerializeField] float fireballCooldown;
-    [SerializeField] float fireballThrowForce;
-    [SerializeField] float fireballThrowUpwardsForce;
+    [SerializeField] float fireballCD;
+    [SerializeField] float fireballForce;
+    [SerializeField] float fireballUpForce;
     bool readyToThrow = true;
 
 
     [Header("Circle Explosion variables")]
 
-    [SerializeField] float explosionCircleCooldown;
+    [SerializeField] float circleCD;
     bool readyToUse = true;
 
 
@@ -264,29 +281,34 @@ public class Player : MonoBehaviour {
     void FireballThrow() {
 
         readyToThrow = false;
-        GameObject fireball = Instantiate(fireballPrefab, fireballAttackPoint);
+        GameObject fireball = Instantiate(fireballPrefab, attackPoint);
         Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
         Vector3 forceToAdd;
 
 
         if (Input.GetKey(KeyCode.W)) {
 
-            forceToAdd = transform.up * fireballThrowUpwardsForce * 1.5f;
+            if (crouching) {
+
+                fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
+            }
+
+            forceToAdd = transform.up * fireballUpForce * 1.5f;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
         else if (crouching) {
 
             fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-            forceToAdd = transform.right * fireballThrowForce * 1.5f;
+            forceToAdd = transform.right * fireballForce * 1.5f;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
         else {
 
-            forceToAdd = transform.right * fireballThrowForce + transform.up * fireballThrowUpwardsForce;
+            forceToAdd = transform.right * fireballForce + transform.up * fireballUpForce;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
 
-        Invoke(nameof(ResetThrow), fireballCooldown);
+        Invoke(nameof(ResetThrow), fireballCD);
     }
 
 
@@ -296,7 +318,7 @@ public class Player : MonoBehaviour {
         readyToUse = false;
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
 
-        Invoke(nameof(ResetAbilityUse), explosionCircleCooldown);
+        Invoke(nameof(ResetAbilityUse), circleCD);
     }
 
 

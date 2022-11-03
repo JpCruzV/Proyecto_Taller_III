@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223364790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -1, z: 0}
+  m_LocalPosition: {x: 5, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -248,7 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 238167040}
   m_Layer: 0
-  m_Name: FireballExitPoint
+  m_Name: Attack Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 970323404}
   m_Layer: 3
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -780,6 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  backDashForce: 50
   otherPlayer: {fileID: 252642571}
   jumpForce: 15
   jumpCooldown: 1
@@ -789,16 +790,16 @@ MonoBehaviour:
   floor:
     serializedVersion: 2
     m_Bits: 8
-  fireballAttackPoint: {fileID: 238167040}
+  attackPoint: {fileID: 238167040}
   fireballPrefab: {fileID: 7869055907146530803, guid: 2dfb07ea442cb084cb28d35139e8ac53,
     type: 3}
   explosionCircleAttackPoint: {fileID: 223364791}
   explosionCirclePrefab: {fileID: 2740250755864477861, guid: 3b982b79f31882f46aed4ffe8afb8546,
     type: 3}
-  fireballCooldown: 0.3
-  fireballThrowForce: 6
-  fireballThrowUpwardsForce: 15
-  explosionCircleCooldown: 3
+  fireballCD: 0.2
+  fireballForce: 6
+  fireballUpForce: 15
+  circleCD: 3
 --- !u!136 &978253083
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,12 +5,14 @@ using UnityEngine;
 public class ExplosionCircle : MonoBehaviour {
 
 
-    [SerializeField] float delay = 2;
-    [SerializeField] float radius = 3;
-    [SerializeField] float force = 15;
+    [SerializeField] float delay;
+    [SerializeField] float radius;
+    [SerializeField] float force;
 
     float countdown;
     bool hasExploded;
+    Vector3 pos1;
+    Vector3 pos2;
 
 
     private void Start() {
@@ -21,6 +23,9 @@ public class ExplosionCircle : MonoBehaviour {
 
 
     private void Update() {
+
+        pos1 = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z);
+        pos2 = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
         countdown -= Time.deltaTime;
 
@@ -34,7 +39,7 @@ public class ExplosionCircle : MonoBehaviour {
 
     void Explode() {
 
-        Collider[] collliders = Physics.OverlapSphere(transform.position, radius);
+        Collider[] collliders = Physics.OverlapCapsule(pos2, pos1, radius);
 
         foreach(Collider col in collliders) {
 
@@ -42,10 +47,18 @@ public class ExplosionCircle : MonoBehaviour {
 
             if (rb != null) {
 
-                rb.AddForce(transform.up * force, ForceMode.Impulse);
+                rb.AddForce(transform.up * force + transform.right * 1.2f, ForceMode.Impulse);
             }
         }
 
         Destroy(gameObject);
+    }
+
+
+    private void OnDrawGizmos() {
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(pos1, radius);
+        Gizmos.DrawWireSphere(pos2, radius);
     }
 }

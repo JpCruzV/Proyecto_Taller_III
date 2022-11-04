@@ -124,6 +124,11 @@ public class Player : MonoBehaviour {
 
             CreateExplosionCircle();
         }
+        else if (Input.GetKey(KeyCode.I) && readyToThrow)
+        {
+
+            DoShotgunSpell();
+        }
     }
 
 
@@ -197,7 +202,7 @@ public class Player : MonoBehaviour {
 
     void BackDash() {
 
-        Vector3 backDashDir = transform.right * -backDashForce + transform.up * 1.5f;
+        Vector3 backDashDir = transform.right * -backDashForce + transform.up * 2f;
         rb.AddForce(backDashDir, ForceMode.Impulse);
     }
 
@@ -258,14 +263,16 @@ public class Player : MonoBehaviour {
     [Header("Attacks references")]
 
     [SerializeField] Transform attackPoint;
-    [SerializeField] GameObject fireballPrefab;
+    [SerializeField] Transform bottomAttackPoint;
     [SerializeField] Transform explosionCircleAttackPoint;
+    [SerializeField] GameObject fireballPrefab;
     [SerializeField] GameObject explosionCirclePrefab;
-
+    [SerializeField] GameObject shotgunSpellPrefab;
+ 
 
     [Header("Fireball variables")]
 
-    [SerializeField] float fireballCD;
+    [SerializeField] float attackCD;
     [SerializeField] float fireballForce;
     [SerializeField] float fireballUpForce;
     bool readyToThrow = true;
@@ -280,6 +287,7 @@ public class Player : MonoBehaviour {
 
     void FireballThrow() {
 
+        attackCD = .3f;
         readyToThrow = false;
         GameObject fireball = Instantiate(fireballPrefab, attackPoint);
         Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
@@ -308,7 +316,7 @@ public class Player : MonoBehaviour {
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
 
-        Invoke(nameof(ResetThrow), fireballCD);
+        Invoke(nameof(ResetThrow), attackCD);
     }
 
 
@@ -319,6 +327,24 @@ public class Player : MonoBehaviour {
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
 
         Invoke(nameof(ResetAbilityUse), circleCD);
+    }
+
+
+
+    void DoShotgunSpell() {
+
+        attackCD = 1.5f;
+        readyToThrow = false;
+        if (Input.GetKey(KeyCode.S) && !grounded){
+
+            GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
+        }
+        else {
+
+            GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, attackPoint);
+        }
+
+        Invoke(nameof(ResetThrow), attackCD);
     }
 
 

@@ -6,9 +6,9 @@ public class Player : MonoBehaviour {
 
 
 
-    //[Header("Anims")]
+    [Header("Anims")]
 
-    //[SerializeField] Animator anim;
+    [SerializeField] Animator anim;
 
 
 
@@ -115,8 +115,8 @@ public class Player : MonoBehaviour {
         }
 
 
-        //Throw Fireball
-        if (Input.GetKey(KeyCode.U) && readyToThrow) {
+        //Throw Fireball, Explosion Circle and Shotgun spell
+        if (Input.GetKey(KeyCode.U) && readyToUse) {
 
             FireballThrow();
         }
@@ -124,8 +124,7 @@ public class Player : MonoBehaviour {
 
             CreateExplosionCircle();
         }
-        else if (Input.GetKey(KeyCode.I) && readyToThrow)
-        {
+        else if (Input.GetKey(KeyCode.I) && readyToUse) {
 
             DoShotgunSpell();
         }
@@ -270,25 +269,21 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject shotgunSpellPrefab;
  
 
-    [Header("Fireball variables")]
+    [Header("Attacks variables")]
 
-    [SerializeField] float attackCD;
+    [SerializeField] float fireballCD;
     [SerializeField] float fireballForce;
     [SerializeField] float fireballUpForce;
-    bool readyToThrow = true;
-
-
-    [Header("Circle Explosion variables")]
 
     [SerializeField] float circleCD;
+    [SerializeField] float shotgunCD;
     bool readyToUse = true;
 
 
 
     void FireballThrow() {
 
-        attackCD = .3f;
-        readyToThrow = false;
+        readyToUse = false;
         GameObject fireball = Instantiate(fireballPrefab, attackPoint);
         Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
         Vector3 forceToAdd;
@@ -316,7 +311,7 @@ public class Player : MonoBehaviour {
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
 
-        Invoke(nameof(ResetThrow), attackCD);
+        Invoke(nameof(ResetAbilityUse), fireballCD);
     }
 
 
@@ -333,8 +328,7 @@ public class Player : MonoBehaviour {
 
     void DoShotgunSpell() {
 
-        attackCD = 1.5f;
-        readyToThrow = false;
+        readyToUse = false;
         if (Input.GetKey(KeyCode.S) && !grounded){
 
             GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
@@ -344,7 +338,7 @@ public class Player : MonoBehaviour {
             GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, attackPoint);
         }
 
-        Invoke(nameof(ResetThrow), attackCD);
+        Invoke(nameof(ResetAbilityUse), shotgunCD);
     }
 
 
@@ -352,13 +346,6 @@ public class Player : MonoBehaviour {
     void ResetAbilityUse() {
 
         readyToUse = true;
-    }
-
-
-
-    void ResetThrow() {
-
-        readyToThrow = true;
     }
     #endregion
 }

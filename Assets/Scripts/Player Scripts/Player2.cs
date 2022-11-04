@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-
+public class Player2 : MonoBehaviour {
 
 
     [Header("Anims")]
@@ -41,11 +40,11 @@ public class Player : MonoBehaviour {
 
     void MyInput() {
 
-        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.x = Input.GetAxisRaw("Horizontal2");
 
 
         //Double tap for running
-        if ((Input.GetKeyDown(KeyCode.D) && facingRight) || (Input.GetKeyDown(KeyCode.A) && !facingRight)) {
+        if ((Input.GetKeyDown(KeyCode.RightArrow) && facingRight) || (Input.GetKeyDown(KeyCode.LeftArrow) && !facingRight)) {
 
             backwards = false;
 
@@ -59,14 +58,14 @@ public class Player : MonoBehaviour {
                 ButtonCount++;
             }
         }
-        else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
+        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
 
             running = false;
         }
 
 
         //Moving Backwards and dashing
-        if (Input.GetKeyDown(KeyCode.A) && facingRight || Input.GetKeyDown(KeyCode.D) && !facingRight) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && facingRight || Input.GetKeyDown(KeyCode.RightArrow) && !facingRight) {
 
             backwards = true;
 
@@ -80,10 +79,10 @@ public class Player : MonoBehaviour {
                 ButtonCount++;
             }
         }
-        
+
 
         //Jump
-        if (Input.GetKey(KeyCode.W) && readyToJump && grounded) {
+        if (Input.GetKey(KeyCode.UpArrow) && readyToJump && grounded) {
 
             readyToJump = false;
             Jump();
@@ -93,12 +92,12 @@ public class Player : MonoBehaviour {
 
 
         //Crouch
-        if (Input.GetKey(KeyCode.S) && grounded) {
+        if (Input.GetKey(KeyCode.DownArrow) && grounded) {
 
             crouching = true;
             Crouch();
         }
-        else if (Input.GetKeyUp(KeyCode.S)) {
+        else if (Input.GetKeyUp(KeyCode.DownArrow)) {
 
             crouching = false;
             Crouch();
@@ -116,15 +115,15 @@ public class Player : MonoBehaviour {
 
 
         //Throw Fireball, Explosion Circle and Shotgun spell
-        if (Input.GetKey(KeyCode.U) && readyToThrow) {
+        if (Input.GetMouseButton(0) && readyToThrow) {
 
             FireballThrow();
         }
-        else if (Input.GetKey(KeyCode.O) && readyToUse && grounded) {
+        else if (Input.GetMouseButton(1) && readyToUse && grounded) {
 
             CreateExplosionCircle();
         }
-        else if (Input.GetKey(KeyCode.I) && readyToThrow) {
+        else if (Input.GetMouseButton(2) && readyToThrow) {
 
             DoShotgunSpell();
         }
@@ -172,7 +171,7 @@ public class Player : MonoBehaviour {
 
 
     //Double Tap
-    float ButtonCooler  = 0.5f;
+    float ButtonCooler = 0.5f;
     int ButtonCount = 0;
 
 
@@ -267,7 +266,7 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] GameObject explosionCirclePrefab;
     [SerializeField] GameObject shotgunSpellPrefab;
- 
+
 
     [Header("Attacks variables")]
 
@@ -290,7 +289,7 @@ public class Player : MonoBehaviour {
         Vector3 forceToAdd;
 
 
-        if (Input.GetKey(KeyCode.W)) {
+        if (Input.GetKey(KeyCode.UpArrow)) {
 
             if (crouching) {
 
@@ -330,7 +329,7 @@ public class Player : MonoBehaviour {
     void DoShotgunSpell() {
 
         readyToThrow = false;
-        if (Input.GetKey(KeyCode.S) && !grounded){
+        if (Input.GetKey(KeyCode.DownArrow) && !grounded) {
 
             GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
         }
@@ -344,8 +343,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void ResetThrow()
-    {
+    void ResetThrow() {
+
         readyToThrow = true;
     }
 

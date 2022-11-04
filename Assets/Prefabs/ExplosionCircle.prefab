@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2740250755864477860}
   m_Layer: 0
   m_Name: ExplosionCircle
-  m_TagString: Untagged
+  m_TagString: Abilities
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

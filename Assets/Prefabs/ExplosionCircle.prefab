@@ -99,3 +99,4 @@ MonoBehaviour:
   delay: 2
   radius: 1.5
   force: 15
+  damage: 25

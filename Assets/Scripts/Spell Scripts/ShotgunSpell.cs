@@ -6,7 +6,9 @@ public class ShotgunSpell : MonoBehaviour {
 
 
     [SerializeField] float force;
+    [SerializeField] int damage;
 
+    [HideInInspector] public int blastID;
 
     private void Start() {
 
@@ -20,9 +22,10 @@ public class ShotgunSpell : MonoBehaviour {
 
             Rigidbody rb = other.GetComponent<Rigidbody>();
 
-            if (rb != null) {
+            if (rb != null && other.GetComponent<Health>() != null && other.GetComponent<Player>().id != blastID) {
 
                 rb.AddForce(transform.right * force + transform.up * 2, ForceMode.Impulse);
+                other.GetComponent<Health>().TakeDamage(damage);
             }
         }
         else if (other.tag == "Floor") {

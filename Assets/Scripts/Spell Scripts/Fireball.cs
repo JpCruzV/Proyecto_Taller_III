@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour {
 
+
     Rigidbody rb;
     float startCooldown = .5f;
+    [HideInInspector] public int fireballID;
+
+    [SerializeField] int damage;
 
 
     private void Awake() {
@@ -31,6 +35,10 @@ public class Fireball : MonoBehaviour {
 
         if (collision.gameObject.tag != "Floor") {
 
+            if (collision.gameObject.GetComponent<Health>() != null && collision.gameObject.GetComponent<Player>().id != fireballID)
+            {
+                collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }

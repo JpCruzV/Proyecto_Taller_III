@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 
+    public int id;
+
 
     [Header("Anims")]
 
@@ -17,6 +19,29 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         startYScale = transform.localScale.y;
         rb.freezeRotation = true;
+
+        if (id == 1) {
+
+            leftKey = KeyCode.A;
+            rightKey = KeyCode.D;
+            jumpKey = KeyCode.W;
+            crouchKey = KeyCode.S;
+
+            fireballKey = KeyCode.U;
+            blastKey = KeyCode.I;
+            circleKey = KeyCode.O;
+        }
+        else if (id == 2) {
+
+            leftKey = KeyCode.LeftArrow;
+            rightKey = KeyCode.RightArrow;
+            jumpKey = KeyCode.UpArrow;
+            crouchKey = KeyCode.DownArrow;
+
+            fireballKey = KeyCode.None;
+            blastKey = KeyCode.None;
+            circleKey = KeyCode.None;
+        }
     }
 
 
@@ -39,13 +64,25 @@ public class Player : MonoBehaviour {
 
 
 
-    void MyInput() {
+    #region Inputs
 
-        movement.x = Input.GetAxisRaw("Horizontal");
+
+    [Header("Inputs Config")]
+
+    [SerializeField] KeyCode leftKey;
+    [SerializeField] KeyCode rightKey;
+    [SerializeField] KeyCode jumpKey;
+    [SerializeField] KeyCode crouchKey;
+
+    [SerializeField] KeyCode fireballKey;
+    [SerializeField] KeyCode blastKey;
+    [SerializeField] KeyCode circleKey;
+
+    void MyInput() {
 
 
         //Double tap for running
-        if ((Input.GetKeyDown(KeyCode.D) && facingRight) || (Input.GetKeyDown(KeyCode.A) && !facingRight)) {
+        if ((Input.GetKeyDown(rightKey) && facingRight) || (Input.GetKeyDown(leftKey) && !facingRight)) {
 
             backwards = false;
 
@@ -59,14 +96,14 @@ public class Player : MonoBehaviour {
                 ButtonCount++;
             }
         }
-        else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
+        else if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)) {
 
             running = false;
         }
 
 
         //Moving Backwards and dashing
-        if (Input.GetKeyDown(KeyCode.A) && facingRight || Input.GetKeyDown(KeyCode.D) && !facingRight) {
+        if (Input.GetKeyDown(leftKey) && facingRight || Input.GetKeyDown(rightKey) && !facingRight) {
 
             backwards = true;
 
@@ -83,7 +120,7 @@ public class Player : MonoBehaviour {
         
 
         //Jump
-        if (Input.GetKey(KeyCode.W) && readyToJump && grounded) {
+        if (Input.GetKey(jumpKey) && readyToJump && grounded) {
 
             readyToJump = false;
             Jump();
@@ -93,12 +130,12 @@ public class Player : MonoBehaviour {
 
 
         //Crouch
-        if (Input.GetKey(KeyCode.S) && grounded) {
+        if (Input.GetKey(crouchKey) && grounded) {
 
             crouching = true;
             Crouch();
         }
-        else if (Input.GetKeyUp(KeyCode.S)) {
+        else if (Input.GetKeyUp(crouchKey)) {
 
             crouching = false;
             Crouch();
@@ -116,19 +153,37 @@ public class Player : MonoBehaviour {
 
 
         //Throw Fireball, Explosion Circle and Shotgun spell
-        if (Input.GetKey(KeyCode.U) && readyToThrow) {
+        if (id == 1) {
 
-            FireballThrow();
+            if (Input.GetKey(fireballKey) && readyToThrow) {
+
+                FireballThrow();
+            }
+            else if (Input.GetKey(circleKey) && readyToUse && grounded) {
+
+                CreateExplosionCircle();
+            }
+            else if (Input.GetKey(blastKey) && readyToThrow) {
+
+                DoShotgunSpell();
+            }
         }
-        else if (Input.GetKey(KeyCode.O) && readyToUse && grounded) {
+        else {
+            if (Input.GetMouseButton(0) && readyToThrow) {
 
-            CreateExplosionCircle();
-        }
-        else if (Input.GetKey(KeyCode.I) && readyToThrow) {
+                FireballThrow();
+            }
+            else if (Input.GetMouseButton(1) && readyToUse && grounded) {
 
-            DoShotgunSpell();
+                CreateExplosionCircle();
+            }
+            else if (Input.GetMouseButton(2) && readyToThrow) {
+
+                DoShotgunSpell();
+            }
         }
     }
+    #endregion
 
 
 
@@ -179,6 +234,25 @@ public class Player : MonoBehaviour {
 
     void MovePlayer() {
 
+
+        if (Input.GetKey(rightKey)) {
+
+            movement.x = 1;
+        }
+        else if (Input.GetKey(leftKey)) {
+
+            movement.x = -1;
+        }
+        else {
+
+            movement.x = 0;
+        }
+        if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)){
+
+            movement.x = 0;
+        }
+
+
         if (crouching) {
 
             rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
@@ -213,12 +287,10 @@ public class Player : MonoBehaviour {
 
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-            crouching = true;
         }
         else if (!crouching) {
 
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            crouching = false;
         }
     }
 
@@ -286,11 +358,12 @@ public class Player : MonoBehaviour {
 
         readyToThrow = false;
         GameObject fireball = Instantiate(fireballPrefab, attackPoint);
+        fireball.GetComponent<Fireball>().fireballID = id;
         Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
         Vector3 forceToAdd;
 
 
-        if (Input.GetKey(KeyCode.W)) {
+        if (Input.GetKey(jumpKey)) {
 
             if (crouching) {
 
@@ -321,6 +394,8 @@ public class Player : MonoBehaviour {
 
         readyToUse = false;
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
+        explosionCircle.GetComponent<ExplosionCircle>().circleID = id;
+
 
         Invoke(nameof(ResetAbilityUse), circleCD);
     }
@@ -330,13 +405,15 @@ public class Player : MonoBehaviour {
     void DoShotgunSpell() {
 
         readyToThrow = false;
-        if (Input.GetKey(KeyCode.S) && !grounded){
+        if (Input.GetKey(crouchKey) && !grounded){
 
             GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
+            shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
         }
         else {
 
             GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, attackPoint);
+            shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
         }
 
         Invoke(nameof(ResetThrow), shotgunCD);

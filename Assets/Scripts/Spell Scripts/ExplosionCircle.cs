@@ -8,6 +8,8 @@ public class ExplosionCircle : MonoBehaviour {
     [SerializeField] float delay;
     [SerializeField] float radius;
     [SerializeField] float force;
+    [SerializeField] int damage;
+    [HideInInspector] public int circleID;
 
     float countdown;
     bool hasExploded;
@@ -45,9 +47,13 @@ public class ExplosionCircle : MonoBehaviour {
 
             Rigidbody rb = col.GetComponent<Rigidbody>();
 
-            if (rb != null) {
+            if (rb != null && col.GetComponent<Health>() != null) {
 
-                rb.AddForce(transform.up * force + transform.right * 1.2f, ForceMode.Impulse);
+                if (col.GetComponent<Player>().id != circleID) {
+
+                    rb.AddForce(transform.up * force + transform.right * 1.2f, ForceMode.Impulse);
+                    col.GetComponent<Health>().TakeDamage(damage);
+                }
             }
         }
 

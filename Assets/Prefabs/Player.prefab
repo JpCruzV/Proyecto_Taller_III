@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2284766813055035733}
   - component: {fileID: 2284766813055035730}
   - component: {fileID: 2284766813055035731}
+  - component: {fileID: 2100543855}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -142,7 +143,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a41057538fbc342adc4283ca9b53c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1
   anim: {fileID: 2284766813916101061}
+  leftKey: 97
+  rightKey: 100
+  jumpKey: 119
+  crouchKey: 115
+  fireballKey: 117
+  blastKey: 105
+  circleKey: 111
   moveSpeed: 7
   backDashForce: 20
   otherPlayer: {fileID: 0}
@@ -163,10 +172,25 @@ MonoBehaviour:
     type: 3}
   shotgunSpellPrefab: {fileID: 3772261439193708512, guid: eaf3f6b3bfbb8d641b2145ae5fb8e9d0,
     type: 3}
-  attackCD: 0.3
+  fireballCD: 0.3
   fireballForce: 6
   fireballUpForce: 15
   circleCD: 3
+  shotgunCD: 2
+--- !u!114 &2100543855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284766813055035729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942d47c9a98c8914493dd72a72025582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthBar: {fileID: 0}
 --- !u!1 &2284766813597147256
 GameObject:
   m_ObjectHideFlags: 0

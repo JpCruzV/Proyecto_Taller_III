@@ -20,28 +20,7 @@ public class Player : MonoBehaviour {
         startYScale = transform.localScale.y;
         rb.freezeRotation = true;
 
-        if (id == 1) {
-
-            leftKey = KeyCode.A;
-            rightKey = KeyCode.D;
-            jumpKey = KeyCode.W;
-            crouchKey = KeyCode.S;
-
-            fireballKey = KeyCode.U;
-            blastKey = KeyCode.I;
-            circleKey = KeyCode.O;
-        }
-        else if (id == 2) {
-
-            leftKey = KeyCode.LeftArrow;
-            rightKey = KeyCode.RightArrow;
-            jumpKey = KeyCode.UpArrow;
-            crouchKey = KeyCode.DownArrow;
-
-            fireballKey = KeyCode.None;
-            blastKey = KeyCode.None;
-            circleKey = KeyCode.None;
-        }
+        InputSetUp();
     }
 
 
@@ -107,7 +86,7 @@ public class Player : MonoBehaviour {
 
             backwards = true;
 
-            if (ButtonCooler > 0 && ButtonCount == 1) {
+            if (ButtonCooler > 0 && ButtonCount == 1 && grounded) {
 
                 BackDash();
             }
@@ -181,6 +160,34 @@ public class Player : MonoBehaviour {
 
                 DoShotgunSpell();
             }
+        }
+    }
+
+
+
+    void InputSetUp() {
+
+        if (id == 1) {
+
+            leftKey = KeyCode.A;
+            rightKey = KeyCode.D;
+            jumpKey = KeyCode.W;
+            crouchKey = KeyCode.S;
+
+            fireballKey = KeyCode.U;
+            blastKey = KeyCode.I;
+            circleKey = KeyCode.O;
+        }
+        else if (id == 2) {
+
+            leftKey = KeyCode.LeftArrow;
+            rightKey = KeyCode.RightArrow;
+            jumpKey = KeyCode.UpArrow;
+            crouchKey = KeyCode.DownArrow;
+
+            fireballKey = KeyCode.None;
+            blastKey = KeyCode.None;
+            circleKey = KeyCode.None;
         }
     }
     #endregion
@@ -275,8 +282,13 @@ public class Player : MonoBehaviour {
 
     void BackDash() {
 
-        Vector3 backDashDir = transform.right * -backDashForce + transform.up * 2f;
-        rb.AddForce(backDashDir, ForceMode.Impulse);
+        if (facingRight)
+            transform.position = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
+        else
+            transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+
+        //Vector3 backDashDir = transform.right * -backDashForce + transform.up * 2f;
+        //rb.AddForce(backDashDir, ForceMode.Impulse);
     }
 
 

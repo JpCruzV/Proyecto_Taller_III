@@ -35,9 +35,9 @@ public class Fireball : MonoBehaviour {
 
         if (collision.gameObject.tag != "Floor") {
 
-            if (collision.gameObject.GetComponent<Health>() != null && collision.gameObject.GetComponent<Player>().id != fireballID)
+            if (collision.gameObject.GetComponent<Player>() != null && collision.gameObject.GetComponent<Player>().id != fireballID)
             {
-                collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+                collision.gameObject.GetComponent<Player>().TakeDamage(damage);
             }
             Destroy(gameObject);
         }

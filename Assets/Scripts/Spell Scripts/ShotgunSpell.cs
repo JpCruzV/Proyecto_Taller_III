@@ -10,6 +10,7 @@ public class ShotgunSpell : MonoBehaviour {
 
     [HideInInspector] public int blastID;
 
+
     private void Start() {
 
         Destroy(gameObject, 1.5f);
@@ -22,10 +23,10 @@ public class ShotgunSpell : MonoBehaviour {
 
             Rigidbody rb = other.GetComponent<Rigidbody>();
 
-            if (rb != null && other.GetComponent<Health>() != null && other.GetComponent<Player>().id != blastID) {
+            if (rb != null && other.GetComponent<Player>() != null && other.GetComponent<Player>().id != blastID) {
 
                 rb.AddForce(transform.right * force + transform.up * 2, ForceMode.Impulse);
-                other.GetComponent<Health>().TakeDamage(damage);
+                other.GetComponent<Player>().TakeDamage(damage);
             }
         }
         else if (other.tag == "Floor") {

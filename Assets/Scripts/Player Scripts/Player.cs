@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
         rb.freezeRotation = true;
 
         InputSetUp();
+        SetHp();
     }
 
 
@@ -134,31 +135,58 @@ public class Player : MonoBehaviour {
         //Throw Fireball, Explosion Circle and Shotgun spell
         if (id == 1) {
 
-            if (Input.GetKey(fireballKey) && readyToThrow) {
+            if (Input.GetKey(fireballKey) && readyToThrow && !shielding) {
 
                 FireballThrow();
             }
             else if (Input.GetKey(circleKey) && readyToUse && grounded) {
 
-                CreateExplosionCircle();
+                if (backwards) {
+
+                    shielding = true;
+                    rb.isKinematic = true;
+                }
+                else {
+
+                    CreateExplosionCircle();
+                }
             }
-            else if (Input.GetKey(blastKey) && readyToThrow) {
+            else if (Input.GetKey(blastKey) && readyToThrow && !shielding) {
 
                 DoShotgunSpell();
             }
+            else if (Input.GetKeyUp(circleKey)) {
+
+                shielding = false;
+                rb.isKinematic = false;
+            }
         }
         else {
-            if (Input.GetMouseButton(0) && readyToThrow) {
+
+            if (Input.GetMouseButton(0) && readyToThrow && !shielding) {
 
                 FireballThrow();
             }
             else if (Input.GetMouseButton(1) && readyToUse && grounded) {
 
-                CreateExplosionCircle();
+                if (backwards) {
+
+                    shielding = true;
+                    rb.isKinematic = true;
+                }
+                else {
+
+                    CreateExplosionCircle();
+                }
             }
-            else if (Input.GetMouseButton(2) && readyToThrow) {
+            else if (Input.GetMouseButton(2) && readyToThrow && !shielding) {
 
                 DoShotgunSpell();
+            }
+            else if (Input.GetMouseButtonUp(1)) {
+
+                shielding = false;
+                rb.isKinematic = false;
             }
         }
     }
@@ -340,7 +368,7 @@ public class Player : MonoBehaviour {
 
 
 
-    #region Attacks
+    #region Abilities
 
 
     [Header("Attacks references")]
@@ -443,6 +471,38 @@ public class Player : MonoBehaviour {
     void ResetAbilityUse() {
 
         readyToUse = true;
+    }
+    #endregion
+
+
+
+    #region Hp
+
+
+    [Header("Hp")]
+
+    [SerializeField] HealthBar healthBar;
+    [SerializeField] int maxHealth;
+    int currentHealth;
+    bool shielding = false;
+
+
+
+    void SetHp() {
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
+
+
+    public void TakeDamage(int damage) {
+
+        if (!shielding) {
+
+            currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
+        }
     }
     #endregion
 }

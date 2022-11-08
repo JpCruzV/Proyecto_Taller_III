@@ -47,12 +47,12 @@ public class ExplosionCircle : MonoBehaviour {
 
             Rigidbody rb = col.GetComponent<Rigidbody>();
 
-            if (rb != null && col.GetComponent<Health>() != null) {
+            if (rb != null && col.GetComponent<Player>() != null) {
 
                 if (col.GetComponent<Player>().id != circleID) {
 
                     rb.AddForce(transform.up * force + transform.right * 1.2f, ForceMode.Impulse);
-                    col.GetComponent<Health>().TakeDamage(damage);
+                    col.GetComponent<Player>().TakeDamage(damage);
                 }
             }
         }

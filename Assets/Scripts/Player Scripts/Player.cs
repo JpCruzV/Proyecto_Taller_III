@@ -139,21 +139,30 @@ public class Player : MonoBehaviour {
 
                 FireballThrow();
             }
-            else if (Input.GetKey(circleKey) && readyToUse && grounded) {
+            else if (Input.GetKey(circleKey) && readyToUse) {
 
-                if (backwards) {
+                if (grounded)
+                {
+                    if (backwards)
+                    {
 
-                    shielding = true;
-                    rb.isKinematic = true;
+                        shielding = true;
+                        rb.isKinematic = true;
+                    }
+                    else
+                    {
+
+                        CreateExplosionCircle();
+                    }
                 }
                 else {
 
-                    CreateExplosionCircle();
+                    LaserBeam();
                 }
             }
             else if (Input.GetKey(blastKey) && readyToThrow && !shielding) {
 
-                DoShotgunSpell();
+                BlastSpell();
             }
             else if (Input.GetKeyUp(circleKey)) {
 
@@ -167,21 +176,28 @@ public class Player : MonoBehaviour {
 
                 FireballThrow();
             }
-            else if (Input.GetMouseButton(1) && readyToUse && grounded) {
+            else if (Input.GetMouseButton(1) && readyToUse) {
 
-                if (backwards) {
+                if (grounded) {
 
-                    shielding = true;
-                    rb.isKinematic = true;
+                    if (backwards) {
+
+                        shielding = true;
+                        rb.isKinematic = true;
+                    }
+                    else {
+
+                        CreateExplosionCircle();
+                    }
                 }
                 else {
 
-                    CreateExplosionCircle();
+                    LaserBeam();
                 }
             }
             else if (Input.GetMouseButton(2) && readyToThrow && !shielding) {
 
-                DoShotgunSpell();
+                BlastSpell();
             }
             else if (Input.GetMouseButtonUp(1)) {
 
@@ -376,10 +392,12 @@ public class Player : MonoBehaviour {
     [SerializeField] Transform attackPoint;
     [SerializeField] Transform bottomAttackPoint;
     [SerializeField] Transform explosionCircleAttackPoint;
+
     [SerializeField] GameObject fireballPrefab;
     [SerializeField] GameObject explosionCirclePrefab;
-    [SerializeField] GameObject shotgunSpellPrefab;
- 
+    [SerializeField] GameObject blastSpellPrefab;
+    [SerializeField] GameObject laserPrefab;
+
 
     [Header("Attacks variables")]
 
@@ -387,8 +405,11 @@ public class Player : MonoBehaviour {
     [SerializeField] float fireballForce;
     [SerializeField] float fireballUpForce;
 
+    [SerializeField] float laserCD;
+    [SerializeField] float laserForce;
+
     [SerializeField] float circleCD;
-    [SerializeField] float shotgunCD;
+    [SerializeField] float blastCD;
     bool readyToThrow = true;
     bool readyToUse = true;
 
@@ -442,21 +463,36 @@ public class Player : MonoBehaviour {
 
 
 
-    void DoShotgunSpell() {
+    void LaserBeam() {
+
+        readyToUse = false;
+        GameObject laser = Instantiate(laserPrefab, attackPoint);
+        laser.GetComponent<Laser>().laserID = id;
+        Rigidbody laserRB = laser.GetComponent<Rigidbody>();
+        Vector3 forceToAdd;
+        forceToAdd = transform.right * laserForce + transform.up * -laserForce;
+        laserRB.AddForce(forceToAdd, ForceMode.Impulse);
+
+        Invoke(nameof(ResetAbilityUse), laserCD);
+    }
+
+
+
+    void BlastSpell() {
 
         readyToThrow = false;
         if (Input.GetKey(crouchKey) && !grounded){
 
-            GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
+            GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
         }
         else {
 
-            GameObject shotgunSpell = Instantiate(shotgunSpellPrefab, attackPoint);
+            GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
         }
 
-        Invoke(nameof(ResetThrow), shotgunCD);
+        Invoke(nameof(ResetThrow), blastCD);
     }
 
 

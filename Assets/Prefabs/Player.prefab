@@ -169,13 +169,18 @@ MonoBehaviour:
     type: 3}
   explosionCirclePrefab: {fileID: 2740250755864477861, guid: 3b982b79f31882f46aed4ffe8afb8546,
     type: 3}
-  shotgunSpellPrefab: {fileID: 3772261439193708512, guid: eaf3f6b3bfbb8d641b2145ae5fb8e9d0,
+  blastSpellPrefab: {fileID: 3772261439193708512, guid: eaf3f6b3bfbb8d641b2145ae5fb8e9d0,
+    type: 3}
+  laserPrefab: {fileID: 6399507703547556014, guid: 34be3e4578df0774a94a4dd1d83a99f6,
     type: 3}
   fireballCD: 0.3
   fireballForce: 6
   fireballUpForce: 15
+  laserCD: 2
+  laserForce: 20
+  laserUpForce: 20
   circleCD: 3
-  shotgunCD: 2
+  blastCD: 0.5
   healthBar: {fileID: 0}
   maxHealth: 100
 --- !u!1 &2284766813597147256

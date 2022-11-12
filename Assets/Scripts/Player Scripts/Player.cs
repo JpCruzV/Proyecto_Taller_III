@@ -160,7 +160,7 @@ public class Player : MonoBehaviour {
                     LaserBeam();
                 }
             }
-            else if (Input.GetKey(blastKey) && readyToThrow && !shielding) {
+            else if (Input.GetKeyDown(blastKey) && readyToThrow && !shielding) {
 
                 BlastSpell();
             }
@@ -485,6 +485,7 @@ public class Player : MonoBehaviour {
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
+            shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
         }
         else {
 

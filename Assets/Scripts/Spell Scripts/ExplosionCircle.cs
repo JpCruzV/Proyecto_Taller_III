@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ExplosionCircle : MonoBehaviour {
 
+    [SerializeField] ParticleSystem psAborb;
+    [SerializeField] VisualEffect _VFX_Ice;
 
     [SerializeField] float delay;
     [SerializeField] float radius;
@@ -21,6 +24,7 @@ public class ExplosionCircle : MonoBehaviour {
 
         countdown = delay;
         transform.parent = null;
+        _VFX_Ice.SetBool("Active", false);
     }
 
 
@@ -30,11 +34,19 @@ public class ExplosionCircle : MonoBehaviour {
         pos2 = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
         countdown -= Time.deltaTime;
+        if (countdown <= 1) {
 
-        if (countdown <= 0f && !hasExploded) {
+            _VFX_Ice.SetBool("Active", true);
+        }
+
+        if (countdown <= .2f && !hasExploded) {
 
             hasExploded = true;
             Explode();
+        }
+        else if (countdown <= 0f) {
+
+            Destroy(gameObject);
         }
     }
 
@@ -56,8 +68,6 @@ public class ExplosionCircle : MonoBehaviour {
                 }
             }
         }
-
-        Destroy(gameObject);
     }
 
 

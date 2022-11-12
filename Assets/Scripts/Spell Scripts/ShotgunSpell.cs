@@ -9,6 +9,7 @@ public class ShotgunSpell : MonoBehaviour {
     [SerializeField] int damage;
 
     [HideInInspector] public int blastID;
+    [HideInInspector] public bool touchedGround = false;
 
 
     private void Start() {
@@ -29,7 +30,7 @@ public class ShotgunSpell : MonoBehaviour {
                 other.GetComponent<Player>().TakeDamage(damage);
             }
         }
-        else if (other.tag == "Floor") {
+        else if (other.tag == "Floor" && touchedGround) {
 
             Destroy(gameObject);
         }

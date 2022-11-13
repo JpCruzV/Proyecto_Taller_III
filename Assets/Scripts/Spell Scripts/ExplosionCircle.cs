@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class ExplosionCircle : MonoBehaviour {
 
     [SerializeField] ParticleSystem psAborb;
-    [SerializeField] VisualEffect _VFX_Ice;
+    [SerializeField] GameObject _VFX_Ice;
 
     [SerializeField] float delay;
     [SerializeField] float radius;
@@ -24,7 +24,7 @@ public class ExplosionCircle : MonoBehaviour {
 
         countdown = delay;
         transform.parent = null;
-        _VFX_Ice.SetBool("Active", false);
+        _VFX_Ice.SetActive(false);
     }
 
 
@@ -34,12 +34,12 @@ public class ExplosionCircle : MonoBehaviour {
         pos2 = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
         countdown -= Time.deltaTime;
-        if (countdown <= 1) {
+        if (countdown <= 2) {
 
-            _VFX_Ice.SetBool("Active", true);
+            _VFX_Ice.SetActive(true);
         }
 
-        if (countdown <= .2f && !hasExploded) {
+        if (countdown <= 1.8f && !hasExploded) {
 
             hasExploded = true;
             Explode();
@@ -63,7 +63,7 @@ public class ExplosionCircle : MonoBehaviour {
 
                 if (col.GetComponent<Player>().id != circleID) {
 
-                    rb.AddForce(transform.up * force + transform.right * 1.2f, ForceMode.Impulse);
+                    rb.AddForce(transform.up * force + transform.right * 2f, ForceMode.Impulse);
                     col.GetComponent<Player>().TakeDamage(damage);
                 }
             }

@@ -303,22 +303,24 @@ public class Player : MonoBehaviour {
             movement.x = 0;
         }
 
+        if (knockbackCD <= 0) {
 
-        if (crouching) {
+            if (crouching) {
 
-            rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
-        }
-        else if (running && !crouching) {
+                rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
+            }
+            else if (running && !crouching) {
 
-            rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
-        }
-        else if (backwards && !running && !crouching) {
+                rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
+            }
+            else if (backwards && !running && !crouching) {
 
-            rb.velocity = new Vector3(movement.x * moveSpeed * .5f, rb.velocity.y, 0);
-        }
-        else {
+                rb.velocity = new Vector3(movement.x * moveSpeed * .5f, rb.velocity.y, 0);
+            }
+            else {
 
-            rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
+                rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
+            }
         }
     }
 
@@ -523,6 +525,8 @@ public class Player : MonoBehaviour {
     int currentHealth;
     bool shielding = false;
 
+    float knockbackCD = 0;
+
 
 
     void SetHp() {
@@ -539,6 +543,17 @@ public class Player : MonoBehaviour {
 
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
+            StartCoroutine(Knockback());
+        }
+    }
+
+    IEnumerator Knockback() {
+
+        knockbackCD = .2f;
+        while (knockbackCD  > 0) {
+
+            knockbackCD -= Time.deltaTime;
+            yield return null;
         }
     }
     #endregion

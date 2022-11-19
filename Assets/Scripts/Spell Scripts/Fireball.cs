@@ -20,6 +20,13 @@ public class Fireball : MonoBehaviour {
     }
 
 
+    private void Update() {
+
+        Vector3 target = transform.position + rb.velocity;
+        transform.LookAt(target);
+    }
+
+
     private void FixedUpdate() {
 
         startCooldown -= Time.fixedDeltaTime;

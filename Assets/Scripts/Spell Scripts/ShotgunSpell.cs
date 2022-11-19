@@ -26,7 +26,7 @@ public class ShotgunSpell : MonoBehaviour {
 
             if (rb != null && other.GetComponent<Player>() != null && other.GetComponent<Player>().id != blastID) {
 
-                rb.AddForce(transform.right * force + transform.up * 2, ForceMode.Impulse);
+                rb.AddForce(transform.right * force * 5 + transform.up * 2, ForceMode.Impulse);
                 other.GetComponent<Player>().TakeDamage(damage);
             }
         }

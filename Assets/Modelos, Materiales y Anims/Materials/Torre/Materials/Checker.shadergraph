@@ -89,8 +89,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 300.99993896484377,
-            "y": -366.0
+            "x": 315.0,
+            "y": -294.0
         },
         "m_Blocks": [
             {
@@ -166,7 +166,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
-    "m_Value": 0.5,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }
@@ -228,10 +228,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 336.9999694824219,
+            "y": -257.0,
+            "width": 200.00009155273438,
+            "height": 40.99998474121094
         }
     },
     "m_Slots": [
@@ -475,10 +475,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -526.0,
-            "y": 22.999984741210939,
-            "width": 207.99990844726563,
-            "height": 350.0
+            "x": -383.0,
+            "y": -3.999969005584717,
+            "width": 208.0,
+            "height": 350.0000305175781
         }
     },
     "m_Slots": [
@@ -951,10 +951,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 324.0,
+            "y": -187.0,
+            "width": 200.0,
+            "height": 41.0
         }
     },
     "m_Slots": [

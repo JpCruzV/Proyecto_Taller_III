@@ -265,7 +265,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _Valor_X_Y: {r: 19.26, g: 11.45, b: 0, a: 0}
+    - _Valor_X_Y: {r: 36.9, g: 5.72, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4151336837803387449
 MonoBehaviour:

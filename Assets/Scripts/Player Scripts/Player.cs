@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour {
 
@@ -14,13 +15,37 @@ public class Player : MonoBehaviour {
 
 
 
+    private void OnEnable() {
+
+        Debug.Log("Enabled");
+        controls.Player.Fireball.performed += OnFireball;
+        controls.Player.Fireball.Enable();
+    }
+
+
+
+    private void OnDisable() {
+
+        controls.Player.Fireball.performed -= OnFireball;
+        controls.Player.Fireball.Disable();
+
+    }
+
+
+
+    private void Awake() {
+
+        controls = new PlayerInputs();
+    }
+
+
+
     private void Start() {
 
         rb = GetComponent<Rigidbody>();
         startYScale = transform.localScale.y;
         rb.freezeRotation = true;
 
-        InputSetUp();
         SetHp();
     }
 
@@ -54,9 +79,13 @@ public class Player : MonoBehaviour {
     [SerializeField] KeyCode jumpKey;
     [SerializeField] KeyCode crouchKey;
 
-    [SerializeField] KeyCode fireballKey;
-    [SerializeField] KeyCode blastKey;
-    [SerializeField] KeyCode circleKey;
+    PlayerInputs controls;
+
+    //[SerializeField] KeyCode fireballKey;
+    //[SerializeField] KeyCode blastKey;
+    //[SerializeField] KeyCode circleKey;
+
+
 
     void MyInput() {
 
@@ -131,7 +160,7 @@ public class Player : MonoBehaviour {
             ButtonCount = 0;
         }
 
-
+        /*
         //Throw Fireball, Explosion Circle and Shotgun spell
         if (id == 1) {
 
@@ -205,34 +234,7 @@ public class Player : MonoBehaviour {
                 rb.isKinematic = false;
             }
         }
-    }
-
-
-
-    void InputSetUp() {
-
-        if (id == 1) {
-
-            leftKey = KeyCode.A;
-            rightKey = KeyCode.D;
-            jumpKey = KeyCode.W;
-            crouchKey = KeyCode.S;
-
-            fireballKey = KeyCode.U;
-            blastKey = KeyCode.I;
-            circleKey = KeyCode.O;
-        }
-        else if (id == 2) {
-
-            leftKey = KeyCode.LeftArrow;
-            rightKey = KeyCode.RightArrow;
-            jumpKey = KeyCode.UpArrow;
-            crouchKey = KeyCode.DownArrow;
-
-            fireballKey = KeyCode.None;
-            blastKey = KeyCode.None;
-            circleKey = KeyCode.None;
-        }
+        */
     }
     #endregion
 
@@ -418,37 +420,41 @@ public class Player : MonoBehaviour {
 
 
     void FireballThrow() {
+        Debug.Log("Fireball");
 
-        readyToThrow = false;
-        GameObject fireball = Instantiate(fireballPrefab, attackPoint);
-        fireball.GetComponent<Fireball>().fireballID = id;
-        Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
-        Vector3 forceToAdd;
+        if (readyToThrow && !shielding) {
+
+            readyToThrow = false;
+            GameObject fireball = Instantiate(fireballPrefab, attackPoint);
+            fireball.GetComponent<Fireball>().fireballID = id;
+            Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
+            Vector3 forceToAdd;
 
 
-        if (Input.GetKey(jumpKey)) {
+            if (Input.GetKey(jumpKey)) {
 
-            if (crouching) {
+                if (crouching) {
+
+                    fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
+                }
+
+                forceToAdd = transform.up * fireballUpForce * 1.5f;
+                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
+            }
+            else if (crouching) {
 
                 fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
+                forceToAdd = transform.right * fireballForce * 1.5f;
+                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
+            }
+            else {
+
+                forceToAdd = transform.right * fireballForce + transform.up * fireballUpForce;
+                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
             }
 
-            forceToAdd = transform.up * fireballUpForce * 1.5f;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
+            Invoke(nameof(ResetThrow), fireballCD);
         }
-        else if (crouching) {
-
-            fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-            forceToAdd = transform.right * fireballForce * 1.5f;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-        }
-        else {
-
-            forceToAdd = transform.right * fireballForce + transform.up * fireballUpForce;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-        }
-
-        Invoke(nameof(ResetThrow), fireballCD);
     }
 
 
@@ -557,4 +563,22 @@ public class Player : MonoBehaviour {
         }
     }
     #endregion
+
+
+    public void OnFireball(InputAction.CallbackContext context)
+    {
+        Debug.Log("Entra el evento");
+        FireballThrow();
+    }
+
+    public void OnBlast(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnSpecialAbility(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+    
 }

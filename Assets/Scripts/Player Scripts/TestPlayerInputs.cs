@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour {
+public class TestPlayerInputs : MonoBehaviour {
 
 
     public int id;
@@ -15,7 +15,36 @@ public class Player : MonoBehaviour {
 
 
 
-    private void Start() {
+    private void OnEnable()
+    {
+
+        Debug.Log("Enabled");
+        controls.Player.Fireball.performed += OnFireball;
+        controls.Player.Fireball.Enable();
+    }
+
+
+
+    private void OnDisable()
+    {
+
+        controls.Player.Fireball.performed -= OnFireball;
+        controls.Player.Fireball.Disable();
+
+    }
+
+
+
+    private void Awake()
+    {
+
+        controls = new PlayerInputs();
+    }
+
+
+
+    private void Start()
+    {
 
         rb = GetComponent<Rigidbody>();
         startYScale = transform.localScale.y;
@@ -26,7 +55,8 @@ public class Player : MonoBehaviour {
 
 
 
-    private void Update() {
+    private void Update()
+    {
 
         MyInput();
         Flip();
@@ -34,7 +64,8 @@ public class Player : MonoBehaviour {
 
 
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
 
         MovePlayer();
 
@@ -54,55 +85,66 @@ public class Player : MonoBehaviour {
     [SerializeField] KeyCode jumpKey;
     [SerializeField] KeyCode crouchKey;
 
-    [SerializeField] KeyCode fireballKey;
-    [SerializeField] KeyCode blastKey;
-    [SerializeField] KeyCode circleKey;
+    PlayerInputs controls;
+
+    //[SerializeField] KeyCode fireballKey;
+    //[SerializeField] KeyCode blastKey;
+    //[SerializeField] KeyCode circleKey;
 
 
 
-    void MyInput() {
+    void MyInput()
+    {
 
 
         //Double tap for running
-        if ((Input.GetKeyDown(rightKey) && facingRight) || (Input.GetKeyDown(leftKey) && !facingRight)) {
+        if ((Input.GetKeyDown(rightKey) && facingRight) || (Input.GetKeyDown(leftKey) && !facingRight))
+        {
 
             backwards = false;
 
-            if (ButtonCooler > 0 && ButtonCount == 1) {
+            if (ButtonCooler > 0 && ButtonCount == 1)
+            {
 
                 running = true;
             }
-            else {
+            else
+            {
 
                 ButtonCooler = 0.2f;
                 ButtonCount++;
             }
         }
-        else if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)) {
+        else if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey))
+        {
 
             running = false;
         }
 
 
         //Moving Backwards and dashing
-        if (Input.GetKeyDown(leftKey) && facingRight || Input.GetKeyDown(rightKey) && !facingRight) {
+        if (Input.GetKeyDown(leftKey) && facingRight || Input.GetKeyDown(rightKey) && !facingRight)
+        {
 
             backwards = true;
 
-            if (ButtonCooler > 0 && ButtonCount == 1 && grounded) {
+            if (ButtonCooler > 0 && ButtonCount == 1 && grounded)
+            {
 
                 BackDash();
             }
-            else {
+            else
+            {
 
                 ButtonCooler = 0.2f;
                 ButtonCount++;
             }
         }
-        
+
 
         //Jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded) {
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        {
 
             readyToJump = false;
             Jump();
@@ -112,12 +154,14 @@ public class Player : MonoBehaviour {
 
 
         //Crouch
-        if (Input.GetKey(crouchKey) && grounded) {
+        if (Input.GetKey(crouchKey) && grounded)
+        {
 
             crouching = true;
             Crouch();
         }
-        else if (Input.GetKeyUp(crouchKey)) {
+        else if (Input.GetKeyUp(crouchKey))
+        {
 
             crouching = false;
             Crouch();
@@ -125,15 +169,17 @@ public class Player : MonoBehaviour {
 
 
         //Button cooldown
-        if (ButtonCooler > 0) {
+        if (ButtonCooler > 0)
+        {
 
             ButtonCooler -= 1 * Time.deltaTime;
         }
-        else {
+        else
+        {
             ButtonCount = 0;
         }
 
-        
+        /*
         //Throw Fireball, Explosion Circle and Shotgun spell
         if (id == 1) {
 
@@ -207,6 +253,7 @@ public class Player : MonoBehaviour {
                 rb.isKinematic = false;
             }
         }
+        */
     }
     #endregion
 
@@ -252,46 +299,56 @@ public class Player : MonoBehaviour {
 
 
     //Double Tap
-    float ButtonCooler  = 0.5f;
+    float ButtonCooler = 0.5f;
     int ButtonCount = 0;
 
 
 
-    void MovePlayer() {
+    void MovePlayer()
+    {
 
 
-        if (Input.GetKey(rightKey)) {
+        if (Input.GetKey(rightKey))
+        {
 
             movement.x = 1;
         }
-        else if (Input.GetKey(leftKey)) {
+        else if (Input.GetKey(leftKey))
+        {
 
             movement.x = -1;
         }
-        else {
+        else
+        {
 
             movement.x = 0;
         }
-        if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)){
+        if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey))
+        {
 
             movement.x = 0;
         }
 
-        if (knockbackCD <= 0) {
+        if (knockbackCD <= 0)
+        {
 
-            if (crouching) {
+            if (crouching)
+            {
 
                 rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
             }
-            else if (running && !crouching) {
+            else if (running && !crouching)
+            {
 
                 rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
             }
-            else if (backwards && !running && !crouching) {
+            else if (backwards && !running && !crouching)
+            {
 
                 rb.velocity = new Vector3(movement.x * moveSpeed * .5f, rb.velocity.y, 0);
             }
-            else {
+            else
+            {
 
                 rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
             }
@@ -300,7 +357,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void BackDash() {
+    void BackDash()
+    {
 
         if (facingRight)
             transform.position = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
@@ -313,14 +371,17 @@ public class Player : MonoBehaviour {
 
 
 
-    void Crouch() {
+    void Crouch()
+    {
 
-        if (crouching) {
+        if (crouching)
+        {
 
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
-        else if (!crouching) {
+        else if (!crouching)
+        {
 
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
@@ -328,7 +389,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void Jump() {
+    void Jump()
+    {
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -336,21 +398,25 @@ public class Player : MonoBehaviour {
 
 
 
-    void ResetJump() {
+    void ResetJump()
+    {
 
         readyToJump = true;
     }
 
 
 
-    void Flip() {
+    void Flip()
+    {
 
-        if (otherPlayer.transform.position.x < transform.position.x && facingRight) {
+        if (otherPlayer.transform.position.x < transform.position.x && facingRight)
+        {
 
             facingRight = !facingRight;
             transform.RotateAround(transform.position, transform.up, 180f);
         }
-        else if (otherPlayer.transform.position.x > transform.position.x && !facingRight) {
+        else if (otherPlayer.transform.position.x > transform.position.x && !facingRight)
+        {
 
             facingRight = !facingRight;
             transform.RotateAround(transform.position, transform.up, 180f);
@@ -391,9 +457,12 @@ public class Player : MonoBehaviour {
 
 
 
-    void FireballThrow() {
+    void FireballThrow()
+    {
+        Debug.Log("Fireball");
 
-        if (readyToThrow && !shielding) {
+        if (readyToThrow && !shielding)
+        {
 
             readyToThrow = false;
             GameObject fireball = Instantiate(fireballPrefab, attackPoint);
@@ -402,9 +471,11 @@ public class Player : MonoBehaviour {
             Vector3 forceToAdd;
 
 
-            if (Input.GetKey(jumpKey)) {
+            if (Input.GetKey(jumpKey))
+            {
 
-                if (crouching) {
+                if (crouching)
+                {
 
                     fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
                 }
@@ -412,13 +483,15 @@ public class Player : MonoBehaviour {
                 forceToAdd = transform.up * fireballUpForce * 1.5f;
                 firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
             }
-            else if (crouching) {
+            else if (crouching)
+            {
 
                 fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
                 forceToAdd = transform.right * fireballForce * 1.5f;
                 firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
             }
-            else {
+            else
+            {
 
                 forceToAdd = transform.right * fireballForce + transform.up * fireballUpForce;
                 firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
@@ -430,7 +503,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void CreateExplosionCircle() {
+    void CreateExplosionCircle()
+    {
 
         readyToUse = false;
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
@@ -442,7 +516,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void LaserBeam() {
+    void LaserBeam()
+    {
 
         readyToUse = false;
         GameObject laser = Instantiate(laserPrefab, attackPoint);
@@ -457,16 +532,19 @@ public class Player : MonoBehaviour {
 
 
 
-    void BlastSpell() {
+    void BlastSpell()
+    {
 
         readyToThrow = false;
-        if (Input.GetKey(crouchKey) && !grounded){
+        if (Input.GetKey(crouchKey) && !grounded)
+        {
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
             shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
         }
-        else {
+        else
+        {
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
@@ -484,7 +562,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void ResetAbilityUse() {
+    void ResetAbilityUse()
+    {
 
         readyToUse = true;
     }
@@ -506,7 +585,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void SetHp() {
+    void SetHp()
+    {
 
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -514,9 +594,11 @@ public class Player : MonoBehaviour {
 
 
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
 
-        if (!shielding) {
+        if (!shielding)
+        {
 
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
@@ -524,14 +606,33 @@ public class Player : MonoBehaviour {
         }
     }
 
-    IEnumerator Knockback() {
+    IEnumerator Knockback()
+    {
 
         knockbackCD = .2f;
-        while (knockbackCD  > 0) {
+        while (knockbackCD > 0)
+        {
 
             knockbackCD -= Time.deltaTime;
             yield return null;
         }
     }
     #endregion
+
+
+    public void OnFireball(InputAction.CallbackContext context)
+    {
+        Debug.Log("Entra el evento");
+        FireballThrow();
+    }
+
+    public void OnBlast(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnSpecialAbility(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
 }

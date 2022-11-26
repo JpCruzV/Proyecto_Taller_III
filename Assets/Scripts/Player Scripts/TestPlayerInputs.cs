@@ -15,10 +15,8 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
 
-        Debug.Log("Enabled");
         controls.Player.Fireball.performed += OnFireball;
         controls.Player.Fireball.Enable();
     }
@@ -620,10 +618,12 @@ public class TestPlayerInputs : MonoBehaviour {
     #endregion
 
 
-    public void OnFireball(InputAction.CallbackContext context)
-    {
-        Debug.Log("Entra el evento");
-        FireballThrow();
+    bool fireballAction = false;
+
+    public void OnFireball(InputAction.CallbackContext context) {
+
+        fireballAction = context.action.triggered;
+        //FireballThrow();
     }
 
     public void OnBlast(InputAction.CallbackContext context)

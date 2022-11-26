@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour {
 
+    [SerializeField]  PlayerInputManager playerManager;
 
     public static bool isPaused = false;
 
@@ -23,7 +25,6 @@ public class GameManager : MonoBehaviour {
     bool p1Won = false;
     bool p2Won = false;
 
-
     private void Start() {
 
         Time.timeScale = 1f;
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour {
 
         p1WonText.SetActive(false);
         p2WonText.SetActive(false);
+
+        //playerManager.JoinPlayer(-1, -1, "Keyboard and Mouse", null);
     }
 
 

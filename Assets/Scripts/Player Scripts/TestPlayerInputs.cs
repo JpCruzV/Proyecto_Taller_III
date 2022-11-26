@@ -13,38 +13,13 @@ public class TestPlayerInputs : MonoBehaviour {
 
     [SerializeField] Animator anim;
 
-
-
-    private void OnEnable()
-    {
-
-        Debug.Log("Enabled");
-        controls.Player.Fireball.performed += OnFireball;
-        controls.Player.Fireball.Enable();
-    }
+    bool fireballAction = false;
+    bool specialAction = false;
+    bool blastAction = false;
 
 
 
-    private void OnDisable()
-    {
-
-        controls.Player.Fireball.performed -= OnFireball;
-        controls.Player.Fireball.Disable();
-
-    }
-
-
-
-    private void Awake()
-    {
-
-        controls = new PlayerInputs();
-    }
-
-
-
-    private void Start()
-    {
+    private void Start() {
 
         rb = GetComponent<Rigidbody>();
         startYScale = transform.localScale.y;
@@ -74,22 +49,40 @@ public class TestPlayerInputs : MonoBehaviour {
     }
 
 
+    public void OnMove(InputAction.CallbackContext context) {
+
+        movement = context.ReadValue<Vector2>();
+    }
+
+
+    public void OnFireball(InputAction.CallbackContext context)
+    {
+
+        fireballAction = context.action.triggered;
+    }
+
+
+    public void OnSpecial(InputAction.CallbackContext context)
+    {
+
+        specialAction = context.action.triggered;
+    }
+
+
+    public void OnBlast(InputAction.CallbackContext context)
+    {
+
+        blastAction = context.action.triggered;
+    }
+
 
     #region Inputs
 
 
     [Header("Inputs Config")]
 
-    [SerializeField] KeyCode leftKey;
-    [SerializeField] KeyCode rightKey;
-    [SerializeField] KeyCode jumpKey;
-    [SerializeField] KeyCode crouchKey;
 
     PlayerInputs controls;
-
-    //[SerializeField] KeyCode fireballKey;
-    //[SerializeField] KeyCode blastKey;
-    //[SerializeField] KeyCode circleKey;
 
 
 
@@ -98,8 +91,7 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
         //Double tap for running
-        if ((Input.GetKeyDown(rightKey) && facingRight) || (Input.GetKeyDown(leftKey) && !facingRight))
-        {
+        if ((movement.x > 0 && facingRight) || (movement.x < 0 && !facingRight)) {
 
             backwards = false;
 
@@ -115,7 +107,7 @@ public class TestPlayerInputs : MonoBehaviour {
                 ButtonCount++;
             }
         }
-        else if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey))
+        else if ((movement.x <= 0 && facingRight) || (movement.x >= 0 && !facingRight))
         {
 
             running = false;
@@ -123,7 +115,7 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
         //Moving Backwards and dashing
-        if (Input.GetKeyDown(leftKey) && facingRight || Input.GetKeyDown(rightKey) && !facingRight)
+        if ((movement.x > 0 && !facingRight) || (movement.x < 0 && facingRight))
         {
 
             backwards = true;
@@ -143,7 +135,7 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
         //Jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (movement.y > 0 && readyToJump && grounded)
         {
 
             readyToJump = false;
@@ -154,14 +146,12 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
         //Crouch
-        if (Input.GetKey(crouchKey) && grounded)
-        {
+        if (movement.y < 0 && grounded) {
 
             crouching = true;
             Crouch();
         }
-        else if (Input.GetKeyUp(crouchKey))
-        {
+        else if (movement.y >= 0) {
 
             crouching = false;
             Crouch();
@@ -179,81 +169,46 @@ public class TestPlayerInputs : MonoBehaviour {
             ButtonCount = 0;
         }
 
-        /*
-        //Throw Fireball, Explosion Circle and Shotgun spell
-        if (id == 1) {
 
-            if (Input.GetKey(fireballKey) && readyToThrow && !shielding) {
+        if (fireballAction && readyToThrow && !shielding)
+        {
 
-                FireballThrow();
-            }
-            else if (Input.GetKey(circleKey) && readyToUse) {
+            FireballThrow();
+        }
+        else if (specialAction && readyToUse)
+        {
 
-                if (grounded)
+            if (grounded)
+            {
+                if (backwards)
                 {
-                    if (backwards)
-                    {
 
-                        shielding = true;
-                        rb.isKinematic = true;
-                    }
-                    else
-                    {
-
-                        CreateExplosionCircle();
-                    }
+                    shielding = true;
+                    rb.isKinematic = true;
                 }
-                else {
+                else
+                {
 
-                    LaserBeam();
+                    CreateExplosionCircle();
                 }
             }
-            else if (Input.GetKeyDown(blastKey) && readyToThrow && !shielding) {
+            else
+            {
 
-                BlastSpell();
-            }
-            else if (Input.GetKeyUp(circleKey)) {
-
-                shielding = false;
-                rb.isKinematic = false;
+                LaserBeam();
             }
         }
-        else {
+        else if (blastAction && readyToThrow && !shielding)
+        {
 
-            if (Input.GetMouseButton(0) && readyToThrow && !shielding) {
-
-                FireballThrow();
-            }
-            else if (Input.GetMouseButton(1) && readyToUse) {
-
-                if (grounded) {
-
-                    if (backwards) {
-
-                        shielding = true;
-                        rb.isKinematic = true;
-                    }
-                    else {
-
-                        CreateExplosionCircle();
-                    }
-                }
-                else {
-
-                    LaserBeam();
-                }
-            }
-            else if (Input.GetMouseButton(2) && readyToThrow && !shielding) {
-
-                BlastSpell();
-            }
-            else if (Input.GetMouseButtonUp(1)) {
-
-                shielding = false;
-                rb.isKinematic = false;
-            }
+            BlastSpell();
         }
-        */
+        else if (!specialAction)
+        {
+
+            shielding = false;
+            rb.isKinematic = false;
+        }
     }
     #endregion
 
@@ -270,7 +225,7 @@ public class TestPlayerInputs : MonoBehaviour {
     [SerializeField] float moveSpeed;
     [SerializeField] float backDashForce;
     [SerializeField] GameObject otherPlayer;
-    Vector3 movement;
+    Vector2 movement;
     bool running;
     bool facingRight = true;
     bool backwards;
@@ -306,28 +261,6 @@ public class TestPlayerInputs : MonoBehaviour {
 
     void MovePlayer()
     {
-
-
-        if (Input.GetKey(rightKey))
-        {
-
-            movement.x = 1;
-        }
-        else if (Input.GetKey(leftKey))
-        {
-
-            movement.x = -1;
-        }
-        else
-        {
-
-            movement.x = 0;
-        }
-        if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey))
-        {
-
-            movement.x = 0;
-        }
 
         if (knockbackCD <= 0)
         {
@@ -471,7 +404,7 @@ public class TestPlayerInputs : MonoBehaviour {
             Vector3 forceToAdd;
 
 
-            if (Input.GetKey(jumpKey))
+            if (movement.y > 0)
             {
 
                 if (crouching)
@@ -536,7 +469,7 @@ public class TestPlayerInputs : MonoBehaviour {
     {
 
         readyToThrow = false;
-        if (Input.GetKey(crouchKey) && !grounded)
+        if (movement.y < 0 && !grounded)
         {
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
@@ -618,21 +551,4 @@ public class TestPlayerInputs : MonoBehaviour {
         }
     }
     #endregion
-
-
-    public void OnFireball(InputAction.CallbackContext context)
-    {
-        Debug.Log("Entra el evento");
-        FireballThrow();
-    }
-
-    public void OnBlast(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnSpecialAbility(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
 }

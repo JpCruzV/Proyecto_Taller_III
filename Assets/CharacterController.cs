@@ -14,11 +14,6 @@ public class CharacterController : MonoBehaviour
         GetComponent<PlayerInput>().SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Move(InputAction.CallbackContext context)
     {

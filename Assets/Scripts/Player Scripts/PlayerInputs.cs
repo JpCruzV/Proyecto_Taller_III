@@ -25,12 +25,57 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Player"",
-            ""id"": ""6bffb2ce-6cbf-45c7-89b9-b982500f717b"",
+            ""id"": ""1ae6c406-cf48-424d-b2ef-fdaee59d8144"",
             ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8a688fc-f015-43c7-9cf2-6af5e28090c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BackDashAndRunning"",
+                    ""type"": ""Button"",
+                    ""id"": ""30e6926a-fb5c-4e2a-8964-265ac9d59114"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""658125db-cf6e-4adf-a856-710ee4f15f68"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""42700c8f-bb16-489e-be40-e7d5c3f81d23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
                 {
                     ""name"": ""Fireball"",
                     ""type"": ""Button"",
-                    ""id"": ""93e53808-ae48-4708-b46f-3b15055bd618"",
+                    ""id"": ""006c5f24-bc04-4b35-9c41-9895da6c7c5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e0c4d51-dffe-45df-a95a-aebc60614a5e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,34 +84,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Blast"",
                     ""type"": ""Button"",
-                    ""id"": ""a8262aa5-e369-4194-a1f1-227c439977e6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Special Ability"",
-                    ""type"": ""Button"",
-                    ""id"": ""0c6a7713-0744-4510-a789-59f23d717492"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""8dd8d4b0-bb23-4cb2-b51e-e0dc4928d683"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""05079116-38d3-4777-8f5e-210e0cc3cbf2"",
+                    ""id"": ""3467cda4-33aa-4fc8-ba50-817d254f7160"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -75,19 +93,244 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
+                    ""name"": ""AD Keys"",
+                    ""id"": ""350e43a4-8648-4699-a3d4-551d492f3850"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""ecf75168-a970-4b23-8475-21991c9c9aca"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""47cfe021-3c24-4bb8-9d74-1c6a9275323c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
-                    ""id"": ""bbbe21bf-67f6-4438-9b0e-afcb0cbddc24"",
+                    ""id"": ""484cc181-36cf-4dc7-8c79-1dbc3a09bb7e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""BackDashAndRunning"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""830459f9-7bfe-43f6-b9d5-8d8bbc6afd96"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17ea2ba6-8194-47bd-a9aa-537a2190c12c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1d5f10b-7369-4d01-946b-94b8efdc9840"",
                     ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Fireball"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b577f772-aecf-46d0-9914-8cc8f78c4784"",
+                    ""id"": ""b5142824-8dd7-406c-9eaa-9d43ee72c082"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3205a57-246f-42d9-b81c-7c6a206fc262"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Blast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player2"",
+            ""id"": ""ad8095e9-3319-466d-bfb9-14f72c43d2b5"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8140012-1050-424f-96fe-336b9d2811c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BackDashAndRunning"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b3cd8a0-4ba1-46e3-90f3-3736c91b2c55"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""03e43aab-cfa5-468a-8766-3e0420268233"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""14106b11-f276-474a-9353-69929de54db6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fireball"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6cc68a8-9ea8-4d2c-be95-9a8036ee25b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7b8d66b-8933-41dc-98dd-b7be1e5b385a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Blast"",
+                    ""type"": ""Button"",
+                    ""id"": ""49eba9c7-25ac-4a74-b601-5129d3e9b363"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""D Keys"",
+                    ""id"": ""69a5e459-fc8e-4ed2-b961-f0136416adfd"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""1f278186-9adc-4650-9af3-a3515f631703"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""3c134b1c-9cb0-4cd2-82bb-58f1a635ee7d"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16dc760a-5f7a-47a8-804d-d930ce2c98ed"",
+                    ""path"": ""<Keyboard>/rightCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""BackDashAndRunning"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9dd894ee-1644-4cfc-a153-22544980c4f6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4584edcc-c1dc-408d-b473-53f3b7d4dfbe"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19097e29-64b1-4a16-8bfa-fc1cc5d13476"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -98,18 +341,18 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""53cfbf9c-d3af-4b04-97d3-c50c5079f935"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""id"": ""723e66e4-d71e-468f-b79c-b98722332a7d"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Blast"",
+                    ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4366a83e-b8ac-44e0-b46c-09c2ab89ef98"",
+                    ""id"": ""50c1a59a-81e1-40c8-8b0b-6127a8c477b9"",
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -117,127 +360,22 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""action"": ""Blast"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c337a050-8b66-42f9-9c0b-7366103eb64f"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Special Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4427dae0-730e-4f19-9700-3a8aba6deec7"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Special Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a1afaf3b-db73-43cf-b3fc-3e7c9674b404"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""7befd59f-1799-4fa2-83a8-a46dcb00c4a1"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""af4f59ed-a391-422e-b6bf-d1f75e301a29"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""4abe6a83-b03d-4d81-9c81-b7fd509440ad"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""e7999dea-7a2b-4611-8e7a-9524cdefd5d1"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""3b57aed2-6d2d-4aa5-bef3-d9ada2415a98"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
-            ""name"": ""Player2"",
-            ""id"": ""2677202e-f752-40ec-9d96-cb151514ea53"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""fdb3adc0-42d3-4e6a-b611-dc270da429f2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""46b67a24-1c2a-4a9c-b1bd-be1895e489bf"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
         {
             ""name"": ""Keyboard and Mouse"",
             ""bindingGroup"": ""Keyboard and Mouse"",
@@ -253,30 +391,27 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""GamePad"",
-            ""bindingGroup"": ""GamePad"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
         }
     ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Fireball = m_Player.FindAction("Fireball", throwIfNotFound: true);
-        m_Player_Blast = m_Player.FindAction("Blast", throwIfNotFound: true);
-        m_Player_SpecialAbility = m_Player.FindAction("Special Ability", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_BackDashAndRunning = m_Player.FindAction("BackDashAndRunning", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Fireball = m_Player.FindAction("Fireball", throwIfNotFound: true);
+        m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
+        m_Player_Blast = m_Player.FindAction("Blast", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
-        m_Player2_Newaction = m_Player2.FindAction("New action", throwIfNotFound: true);
+        m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
+        m_Player2_BackDashAndRunning = m_Player2.FindAction("BackDashAndRunning", throwIfNotFound: true);
+        m_Player2_Crouch = m_Player2.FindAction("Crouch", throwIfNotFound: true);
+        m_Player2_Jump = m_Player2.FindAction("Jump", throwIfNotFound: true);
+        m_Player2_Fireball = m_Player2.FindAction("Fireball", throwIfNotFound: true);
+        m_Player2_Special = m_Player2.FindAction("Special", throwIfNotFound: true);
+        m_Player2_Blast = m_Player2.FindAction("Blast", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -336,20 +471,24 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Fireball;
-    private readonly InputAction m_Player_Blast;
-    private readonly InputAction m_Player_SpecialAbility;
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_BackDashAndRunning;
+    private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Fireball;
+    private readonly InputAction m_Player_Special;
+    private readonly InputAction m_Player_Blast;
     public struct PlayerActions
     {
         private @PlayerInputs m_Wrapper;
         public PlayerActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Fireball => m_Wrapper.m_Player_Fireball;
-        public InputAction @Blast => m_Wrapper.m_Player_Blast;
-        public InputAction @SpecialAbility => m_Wrapper.m_Player_SpecialAbility;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @BackDashAndRunning => m_Wrapper.m_Player_BackDashAndRunning;
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Fireball => m_Wrapper.m_Player_Fireball;
+        public InputAction @Special => m_Wrapper.m_Player_Special;
+        public InputAction @Blast => m_Wrapper.m_Player_Blast;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -359,40 +498,52 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Fireball.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
-                @Fireball.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
-                @Fireball.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
-                @Blast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
-                @Blast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
-                @Blast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
-                @SpecialAbility.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecialAbility;
-                @SpecialAbility.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecialAbility;
-                @SpecialAbility.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecialAbility;
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @BackDashAndRunning.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackDashAndRunning;
+                @BackDashAndRunning.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackDashAndRunning;
+                @BackDashAndRunning.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackDashAndRunning;
+                @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Fireball.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
+                @Fireball.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
+                @Fireball.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireball;
+                @Special.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpecial;
+                @Blast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
+                @Blast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
+                @Blast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlast;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Fireball.started += instance.OnFireball;
-                @Fireball.performed += instance.OnFireball;
-                @Fireball.canceled += instance.OnFireball;
-                @Blast.started += instance.OnBlast;
-                @Blast.performed += instance.OnBlast;
-                @Blast.canceled += instance.OnBlast;
-                @SpecialAbility.started += instance.OnSpecialAbility;
-                @SpecialAbility.performed += instance.OnSpecialAbility;
-                @SpecialAbility.canceled += instance.OnSpecialAbility;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @BackDashAndRunning.started += instance.OnBackDashAndRunning;
+                @BackDashAndRunning.performed += instance.OnBackDashAndRunning;
+                @BackDashAndRunning.canceled += instance.OnBackDashAndRunning;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Fireball.started += instance.OnFireball;
+                @Fireball.performed += instance.OnFireball;
+                @Fireball.canceled += instance.OnFireball;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
+                @Blast.started += instance.OnBlast;
+                @Blast.performed += instance.OnBlast;
+                @Blast.canceled += instance.OnBlast;
             }
         }
     }
@@ -401,12 +552,24 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     // Player2
     private readonly InputActionMap m_Player2;
     private IPlayer2Actions m_Player2ActionsCallbackInterface;
-    private readonly InputAction m_Player2_Newaction;
+    private readonly InputAction m_Player2_Movement;
+    private readonly InputAction m_Player2_BackDashAndRunning;
+    private readonly InputAction m_Player2_Crouch;
+    private readonly InputAction m_Player2_Jump;
+    private readonly InputAction m_Player2_Fireball;
+    private readonly InputAction m_Player2_Special;
+    private readonly InputAction m_Player2_Blast;
     public struct Player2Actions
     {
         private @PlayerInputs m_Wrapper;
         public Player2Actions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Player2_Newaction;
+        public InputAction @Movement => m_Wrapper.m_Player2_Movement;
+        public InputAction @BackDashAndRunning => m_Wrapper.m_Player2_BackDashAndRunning;
+        public InputAction @Crouch => m_Wrapper.m_Player2_Crouch;
+        public InputAction @Jump => m_Wrapper.m_Player2_Jump;
+        public InputAction @Fireball => m_Wrapper.m_Player2_Fireball;
+        public InputAction @Special => m_Wrapper.m_Player2_Special;
+        public InputAction @Blast => m_Wrapper.m_Player2_Blast;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -416,20 +579,65 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_Player2ActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnNewaction;
+                @Movement.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMovement;
+                @BackDashAndRunning.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackDashAndRunning;
+                @BackDashAndRunning.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackDashAndRunning;
+                @BackDashAndRunning.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackDashAndRunning;
+                @Crouch.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
+                @Jump.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
+                @Fireball.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnFireball;
+                @Fireball.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnFireball;
+                @Fireball.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnFireball;
+                @Special.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecial;
+                @Blast.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBlast;
+                @Blast.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBlast;
+                @Blast.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBlast;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @BackDashAndRunning.started += instance.OnBackDashAndRunning;
+                @BackDashAndRunning.performed += instance.OnBackDashAndRunning;
+                @BackDashAndRunning.canceled += instance.OnBackDashAndRunning;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Fireball.started += instance.OnFireball;
+                @Fireball.performed += instance.OnFireball;
+                @Fireball.canceled += instance.OnFireball;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
+                @Blast.started += instance.OnBlast;
+                @Blast.performed += instance.OnBlast;
+                @Blast.canceled += instance.OnBlast;
             }
         }
     }
     public Player2Actions @Player2 => new Player2Actions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -439,25 +647,24 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardandMouseSchemeIndex];
         }
     }
-    private int m_GamePadSchemeIndex = -1;
-    public InputControlScheme GamePadScheme
-    {
-        get
-        {
-            if (m_GamePadSchemeIndex == -1) m_GamePadSchemeIndex = asset.FindControlSchemeIndex("GamePad");
-            return asset.controlSchemes[m_GamePadSchemeIndex];
-        }
-    }
     public interface IPlayerActions
     {
-        void OnFireball(InputAction.CallbackContext context);
-        void OnBlast(InputAction.CallbackContext context);
-        void OnSpecialAbility(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnBackDashAndRunning(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnFireball(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
+        void OnBlast(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
+        void OnBackDashAndRunning(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnFireball(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
+        void OnBlast(InputAction.CallbackContext context);
     }
 }

@@ -109,7 +109,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -120,7 +120,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -131,7 +131,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""BackDashAndRunning"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -142,7 +142,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -153,7 +153,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -164,7 +164,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Fireball"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -175,7 +175,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -186,7 +186,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Keyboard;Keyboard and Mouse"",
                     ""action"": ""Blast"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

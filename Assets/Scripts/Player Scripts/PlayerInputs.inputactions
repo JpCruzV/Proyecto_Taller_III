@@ -185,6 +185,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Player2",
+            "id": "2677202e-f752-40ec-9d96-cb151514ea53",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "fdb3adc0-42d3-4e6a-b611-dc270da429f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "46b67a24-1c2a-4a9c-b1bd-be1895e489bf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

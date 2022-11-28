@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  anim: {fileID: 0}
+  anim: {fileID: 7450701916399661170}
   leftKey: 97
   rightKey: 100
   jumpKey: 119

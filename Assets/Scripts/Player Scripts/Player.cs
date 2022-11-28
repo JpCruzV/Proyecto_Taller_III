@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
         rb.freezeRotation = true;
 
         SetHp();
+
+        anim.GetComponent<Animator>();
     }
 
 
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour {
 
         MyInput();
         Flip();
+
+
     }
 
 
@@ -263,6 +267,7 @@ public class Player : MonoBehaviour {
         if (Input.GetKey(rightKey)) {
 
             movement.x = 1;
+
         }
         else if (Input.GetKey(leftKey)) {
 

@@ -3044,31 +3044,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1388367883}
     m_Modifications:
-    - target: {fileID: 860457266703693905, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: bc6ef87f819b78343b5bb5ee077f45aa, type: 2}
-    - target: {fileID: 1697678020720622750, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f980d1ec66f84fa428fde6b2f2ec10d6, type: 2}
-    - target: {fileID: 2405243940939469334, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2cba8de022fff204fbc80a459fa214d1, type: 2}
-    - target: {fileID: 4297614564952540833, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 067e5b843b9496749990235b856c9a14, type: 2}
-    - target: {fileID: 5093256467132440811, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f980d1ec66f84fa428fde6b2f2ec10d6, type: 2}
     - target: {fileID: 7240483099145382067, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
         type: 3}
       propertyPath: m_RootOrder
@@ -3124,26 +3099,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7268282652800560520, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2cba8de022fff204fbc80a459fa214d1, type: 2}
     - target: {fileID: 8012059493216547337, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
         type: 3}
       propertyPath: m_Name
       value: Torres 4 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 8646413243335463989, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f980d1ec66f84fa428fde6b2f2ec10d6, type: 2}
-    - target: {fileID: 8842060534058180529, guid: 5def4618e91fcfd4d8cb4f9f7e5db068,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f980d1ec66f84fa428fde6b2f2ec10d6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5def4618e91fcfd4d8cb4f9f7e5db068, type: 3}
 --- !u!4 &1304464565 stripped

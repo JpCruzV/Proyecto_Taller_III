@@ -3356,7 +3356,7 @@ PrefabInstance:
     - target: {fileID: 759265423695821064, guid: 9aa4e13355bc72145a0b9bc0f3bea2c8,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Movement
+      value: MovementValue
       objectReference: {fileID: 0}
     - target: {fileID: 759265423695821064, guid: 9aa4e13355bc72145a0b9bc0f3bea2c8,
         type: 3}
@@ -4446,7 +4446,7 @@ PrefabInstance:
     - target: {fileID: 759265423695821064, guid: 9aa4e13355bc72145a0b9bc0f3bea2c8,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Movement
+      value: MovementValue
       objectReference: {fileID: 0}
     - target: {fileID: 759265423695821064, guid: 9aa4e13355bc72145a0b9bc0f3bea2c8,
         type: 3}

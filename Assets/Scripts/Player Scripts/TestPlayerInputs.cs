@@ -29,16 +29,16 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
 
-    private void Update()
-    {
+    private void Update() {
 
         Flip();
     }
 
 
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
+
+        Movement();
 
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, floor);
@@ -91,56 +91,44 @@ public class TestPlayerInputs : MonoBehaviour {
 
 
 
-    public void Movement(InputAction.CallbackContext context)
+    public void MovementValue(InputAction.CallbackContext context) {
+
+        movement = context.ReadValue<float>();
+    }
+
+
+
+    void Movement()
     {
 
-        if (knockbackCD <= 0)
-        {
+        if (knockbackCD <= 0) {
 
 
-            if (context.performed)
-            {
+            if ((movement > 0 && facingRight) || (movement < 0 && !facingRight)) {
 
-                movement = context.ReadValue<float>();
-
-
-                if ((movement > 0 && facingRight) || (movement < 0 && !facingRight))
-                {
-
-                    backwards = false;
-                }
-                else if ((movement < 0 && facingRight) || (movement > 0 && !facingRight))
-                {
-
-                    backwards = true;
-                }
-
-
-                if (crouching)
-                {
-
-                    rb.velocity = new Vector3(movement * crouchSpeed, rb.velocity.y, 0);
-                }
-                else if (running && !crouching)
-                {
-
-                    rb.velocity = new Vector3(movement * moveSpeed * 2, rb.velocity.y, 0);
-                }
-                else if (backwards && !running && !crouching)
-                {
-
-                    rb.velocity = new Vector3(movement * moveSpeed * .5f, rb.velocity.y, 0);
-                }
-                else
-                {
-
-                    rb.velocity = new Vector3(movement * moveSpeed, rb.velocity.y, 0);
-                }
+                backwards = false;
             }
-            else
-            {
+            else if ((movement < 0 && facingRight) || (movement > 0 && !facingRight)) {
 
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
+                backwards = true;
+            }
+
+
+            if (crouching) {
+
+                rb.velocity = new Vector3(movement * crouchSpeed, rb.velocity.y, 0);
+            }
+            else if (running && !crouching) {
+
+                rb.velocity = new Vector3(movement * moveSpeed * 2, rb.velocity.y, 0);
+            }
+            else if (backwards && !running && !crouching) {
+
+                rb.velocity = new Vector3(movement * moveSpeed * .5f, rb.velocity.y, 0);
+            }
+            else {
+
+                rb.velocity = new Vector3(movement * moveSpeed, rb.velocity.y, 0);
             }
         }
     }

@@ -17,6 +17,8 @@ public class Player : MonoBehaviour {
 
     private void Start() {
 
+        GetComponent<PlayerInput>().SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+
         rb = GetComponent<Rigidbody>();
         startYScale = transform.localScale.y;
         rb.freezeRotation = true;
@@ -30,189 +32,18 @@ public class Player : MonoBehaviour {
 
     private void Update() {
 
-        MyInput();
         Flip();
-
-
     }
 
 
 
     private void FixedUpdate() {
 
-        MovePlayer();
+        Movement();
 
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, floor);
     }
-
-
-
-    #region Inputs
-
-
-    [Header("Inputs Config")]
-
-    [SerializeField] KeyCode leftKey;
-    [SerializeField] KeyCode rightKey;
-    [SerializeField] KeyCode jumpKey;
-    [SerializeField] KeyCode crouchKey;
-
-    [SerializeField] KeyCode fireballKey;
-    [SerializeField] KeyCode blastKey;
-    [SerializeField] KeyCode circleKey;
-
-
-
-    void MyInput() {
-
-
-        //Double tap for running
-        if ((Input.GetKeyDown(rightKey) && facingRight) || (Input.GetKeyDown(leftKey) && !facingRight)) {
-
-            backwards = false;
-
-            if (ButtonCooler > 0 && ButtonCount == 1) {
-
-                running = true;
-            }
-            else {
-
-                ButtonCooler = 0.2f;
-                ButtonCount++;
-            }
-        }
-        else if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)) {
-
-            running = false;
-        }
-
-
-        //Moving Backwards and dashing
-        if (Input.GetKeyDown(leftKey) && facingRight || Input.GetKeyDown(rightKey) && !facingRight) {
-
-            backwards = true;
-
-            if (ButtonCooler > 0 && ButtonCount == 1 && grounded) {
-
-                BackDash();
-            }
-            else {
-
-                ButtonCooler = 0.2f;
-                ButtonCount++;
-            }
-        }
-        
-
-        //Jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded) {
-
-            readyToJump = false;
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-
-
-        //Crouch
-        if (Input.GetKey(crouchKey) && grounded) {
-
-            crouching = true;
-            Crouch();
-        }
-        else if (Input.GetKeyUp(crouchKey)) {
-
-            crouching = false;
-            Crouch();
-        }
-
-
-        //Button cooldown
-        if (ButtonCooler > 0) {
-
-            ButtonCooler -= 1 * Time.deltaTime;
-        }
-        else {
-            ButtonCount = 0;
-        }
-
-        
-        //Throw Fireball, Explosion Circle and Shotgun spell
-        if (id == 1) {
-
-            if (Input.GetKey(fireballKey) && readyToThrow && !shielding) {
-
-                FireballThrow();
-            }
-            else if (Input.GetKey(circleKey) && readyToUse) {
-
-                if (grounded)
-                {
-                    if (backwards)
-                    {
-
-                        shielding = true;
-                        rb.isKinematic = true;
-                    }
-                    else
-                    {
-
-                        CreateExplosionCircle();
-                    }
-                }
-                else {
-
-                    LaserBeam();
-                }
-            }
-            else if (Input.GetKeyDown(blastKey) && readyToThrow && !shielding) {
-
-                BlastSpell();
-            }
-            else if (Input.GetKeyUp(circleKey)) {
-
-                shielding = false;
-                rb.isKinematic = false;
-            }
-        }
-        else {
-
-            if (Input.GetMouseButton(0) && readyToThrow && !shielding) {
-
-                FireballThrow();
-            }
-            else if (Input.GetMouseButton(1) && readyToUse) {
-
-                if (grounded) {
-
-                    if (backwards) {
-
-                        shielding = true;
-                        rb.isKinematic = true;
-                    }
-                    else {
-
-                        CreateExplosionCircle();
-                    }
-                }
-                else {
-
-                    LaserBeam();
-                }
-            }
-            else if (Input.GetMouseButton(2) && readyToThrow && !shielding) {
-
-                BlastSpell();
-            }
-            else if (Input.GetMouseButtonUp(1)) {
-
-                shielding = false;
-                rb.isKinematic = false;
-            }
-        }
-    }
-    #endregion
 
 
 
@@ -225,12 +56,18 @@ public class Player : MonoBehaviour {
     [Header("Movement")]
 
     [SerializeField] float moveSpeed;
-    [SerializeField] float backDashForce;
     [SerializeField] GameObject otherPlayer;
-    Vector3 movement;
+    float movement;
     bool running;
     bool facingRight = true;
     bool backwards;
+
+
+    [Header("BackDash")]
+
+    [SerializeField] float backDashDist;
+    [SerializeField] float backDashCD;
+    bool readyToBackDash = true;
 
 
     [Header("Jumping")]
@@ -255,88 +92,121 @@ public class Player : MonoBehaviour {
     bool grounded;
 
 
-    //Double Tap
-    float ButtonCooler  = 0.5f;
-    int ButtonCount = 0;
+
+    public void MovementValue(InputAction.CallbackContext context) {
+
+        movement = context.ReadValue<float>();
+    }
 
 
 
-    void MovePlayer() {
-
-
-        if (Input.GetKey(rightKey)) {
-
-            movement.x = 1;
-
-        }
-        else if (Input.GetKey(leftKey)) {
-
-            movement.x = -1;
-        }
-        else {
-
-            movement.x = 0;
-        }
-        if (Input.GetKeyUp(rightKey) || Input.GetKeyUp(leftKey)){
-
-            movement.x = 0;
-        }
+    void Movement() {
 
         if (knockbackCD <= 0) {
 
+
+            if ((movement > 0 && facingRight) || (movement < 0 && !facingRight)) {
+
+                backwards = false;
+            }
+            else if ((movement < 0 && facingRight) || (movement > 0 && !facingRight)) {
+
+                backwards = true;
+            }
+
+
             if (crouching) {
 
-                rb.velocity = new Vector3(movement.x * crouchSpeed, rb.velocity.y, 0);
+                rb.velocity = new Vector3(movement * crouchSpeed, rb.velocity.y, 0);
             }
             else if (running && !crouching) {
 
-                rb.velocity = new Vector3(movement.x * moveSpeed * 2, rb.velocity.y, 0);
+                rb.velocity = new Vector3(movement * moveSpeed * 2, rb.velocity.y, 0);
             }
             else if (backwards && !running && !crouching) {
 
-                rb.velocity = new Vector3(movement.x * moveSpeed * .5f, rb.velocity.y, 0);
+                rb.velocity = new Vector3(movement * moveSpeed * .5f, rb.velocity.y, 0);
             }
             else {
 
-                rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, 0);
+                rb.velocity = new Vector3(movement * moveSpeed, rb.velocity.y, 0);
             }
         }
     }
 
 
 
-    void BackDash() {
+    public void BackDashAndRunning(InputAction.CallbackContext context) {
 
-        if (facingRight)
-            transform.position = new Vector3(transform.position.x - 2, transform.position.y, transform.position.z);
-        else
-            transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+        if (context.performed && backwards && readyToBackDash) {
 
-        //Vector3 backDashDir = transform.right * -backDashForce + transform.up * 2f;
-        //rb.AddForce(backDashDir, ForceMode.Impulse);
+            readyToBackDash = false;
+
+
+            if (facingRight)
+                transform.position = new Vector3(transform.position.x - backDashDist, transform.position.y, transform.position.z);
+            else
+                transform.position = new Vector3(transform.position.x + backDashDist, transform.position.y, transform.position.z);
+
+            Invoke(nameof(ResetBackDash), backDashCD);
+        }
+        else if (context.performed) {
+
+            running = true;
+        }
+        else {
+
+            running = false;
+        }
     }
 
 
 
-    void Crouch() {
+    public void Crouch(InputAction.CallbackContext context) {
 
-        if (crouching) {
+        if (context.performed && grounded) {
 
+            crouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
-        else if (!crouching) {
 
+
+        if (context.performed)
+            pressedDown = true;
+
+        else {
+            pressedDown = false;
+            crouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
     }
 
 
 
-    void Jump() {
+    public void Jump(InputAction.CallbackContext context) {
 
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (context.performed && readyToJump && grounded && !crouching) {
+
+            readyToJump = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        if (context.performed)
+            pressedUp = true;
+        else
+            pressedUp = false;
+    }
+
+
+
+    void ResetBackDash() {
+
+        readyToBackDash = true;
     }
 
 
@@ -394,11 +264,14 @@ public class Player : MonoBehaviour {
     bool readyToThrow = true;
     bool readyToUse = true;
 
+    bool pressedUp = false;
+    bool pressedDown = false;
 
 
-    void FireballThrow() {
 
-        if (readyToThrow && !shielding) {
+    public void FireballThrow(InputAction.CallbackContext context) {
+
+        if (context.performed && readyToThrow && !shielding) {
 
             readyToThrow = false;
             GameObject fireball = Instantiate(fireballPrefab, attackPoint);
@@ -407,7 +280,7 @@ public class Player : MonoBehaviour {
             Vector3 forceToAdd;
 
 
-            if (Input.GetKey(jumpKey)) {
+            if (pressedUp) {
 
                 if (crouching) {
 
@@ -435,14 +308,31 @@ public class Player : MonoBehaviour {
 
 
 
-    void CreateExplosionCircle() {
+    public void SpecialAction(InputAction.CallbackContext context) {
 
-        readyToUse = false;
-        GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
-        explosionCircle.GetComponent<ExplosionCircle>().circleID = id;
+        if (context.performed && grounded && readyToUse && !backwards) {
+
+            readyToUse = false;
+            GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
+            explosionCircle.GetComponent<ExplosionCircle>().circleID = id;
 
 
-        Invoke(nameof(ResetAbilityUse), circleCD);
+            Invoke(nameof(ResetAbilityUse), circleCD);
+        }
+        else if (context.performed && grounded && backwards) {
+
+            shielding = true;
+            rb.isKinematic = true;
+        }
+        else if (context.performed && !grounded) {
+
+            LaserBeam();
+        }
+        else {
+
+            rb.isKinematic = false;
+            shielding = false;
+        }
     }
 
 
@@ -462,16 +352,19 @@ public class Player : MonoBehaviour {
 
 
 
-    void BlastSpell() {
+    public void BlastSpell(InputAction.CallbackContext context) {
 
-        readyToThrow = false;
-        if (Input.GetKey(crouchKey) && !grounded){
+        if (context.performed && pressedDown && !shielding && readyToThrow) {
+
+            readyToThrow = false;
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
             shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
         }
-        else {
+        else if (readyToThrow && !shielding) {
+
+            readyToThrow = false;
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
@@ -482,8 +375,8 @@ public class Player : MonoBehaviour {
 
 
 
-    void ResetThrow()
-    {
+    void ResetThrow() {
+
         readyToThrow = true;
     }
 

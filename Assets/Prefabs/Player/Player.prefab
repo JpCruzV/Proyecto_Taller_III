@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2284766813055035733}
   - component: {fileID: 2284766813055035730}
   - component: {fileID: 2284766813055035731}
+  - component: {fileID: 1716490462835571556}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,16 +145,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   anim: {fileID: 7450701916399661170}
-  leftKey: 97
-  rightKey: 100
-  jumpKey: 119
-  crouchKey: 115
-  fireballKey: 117
-  blastKey: 105
-  circleKey: 111
   moveSpeed: 7
-  backDashForce: 20
   otherPlayer: {fileID: 0}
+  backDashDist: 3
+  backDashCD: 1
   jumpForce: 15
   jumpCooldown: 1
   crouchSpeed: 5
@@ -182,6 +177,177 @@ MonoBehaviour:
   blastCD: 0.5
   healthBar: {fileID: 0}
   maxHealth: 100
+--- !u!114 &1716490462835571556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284766813055035729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b2027b7b8c3b2584ea6732e6f0323265,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: MovementValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f8a688fc-f015-43c7-9cf2-6af5e28090c4
+    m_ActionName: Player/Movement[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: BackDashAndRunning
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 30e6926a-fb5c-4e2a-8964-265ac9d59114
+    m_ActionName: Player/BackDashAndRunning[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Crouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 658125db-cf6e-4adf-a856-710ee4f15f68
+    m_ActionName: Player/Crouch[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 42700c8f-bb16-489e-be40-e7d5c3f81d23
+    m_ActionName: Player/Jump[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: FireballThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 006c5f24-bc04-4b35-9c41-9895da6c7c5f
+    m_ActionName: Player/Fireball[/Keyboard/u]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: SpecialAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6e0c4d51-dffe-45df-a95a-aebc60614a5e
+    m_ActionName: Player/Special[/Keyboard/o]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2284766813055035731}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: BlastSpell
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3467cda4-33aa-4fc8-ba50-817d254f7160
+    m_ActionName: Player/Blast[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8140012-1050-424f-96fe-336b9d2811c8
+    m_ActionName: Player2/Movement[/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b3cd8a0-4ba1-46e3-90f3-3736c91b2c55
+    m_ActionName: Player2/BackDashAndRunning[/Keyboard/rightCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03e43aab-cfa5-468a-8766-3e0420268233
+    m_ActionName: Player2/Crouch[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14106b11-f276-474a-9353-69929de54db6
+    m_ActionName: Player2/Jump[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c6cc68a8-9ea8-4d2c-be95-9a8036ee25b8
+    m_ActionName: Player2/Fireball[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7b8d66b-8933-41dc-98dd-b7be1e5b385a
+    m_ActionName: Player2/Special[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 49eba9c7-25ac-4a74-b601-5129d3e9b363
+    m_ActionName: Player2/Blast[/Mouse/middleButton]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard and Mouse
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &2284766813597147256
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +566,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d10971e8f96977d47bfc081a30e0c28f, type: 2}
+    - target: {fileID: 8880551235900397658, guid: 4b726194e7ebd064faee310ea9eb4109,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a9f2f54992678f40a228690feb8ef39, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b726194e7ebd064faee310ea9eb4109, type: 3}
 --- !u!4 &1658881659222379186 stripped

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 
 
 
+
     private void Start() {
 
         GetComponent<PlayerInput>().SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour {
         SetHp();
 
         anim.GetComponent<Animator>();
+
     }
 
 
@@ -33,6 +35,11 @@ public class Player : MonoBehaviour {
     private void Update() {
 
         Flip();
+
+        anim.SetFloat("Input", movement);
+        anim.SetBool("Running", running);
+        anim.SetBool("Crouching", crouching);
+        anim.SetBool("Jump", readyToJump) ;
     }
 
 

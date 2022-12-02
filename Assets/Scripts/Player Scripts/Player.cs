@@ -40,6 +40,7 @@ public class Player : MonoBehaviour {
         anim.SetBool("Running", running);
         anim.SetBool("Crouching", crouching);
         anim.SetBool("Jump", readyToJump) ;
+
     }
 
 
@@ -286,6 +287,8 @@ public class Player : MonoBehaviour {
             Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
             Vector3 forceToAdd;
 
+            anim.SetTrigger("FireBall");
+
 
             if (pressedUp) {
 
@@ -322,6 +325,8 @@ public class Player : MonoBehaviour {
             readyToUse = false;
             GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
             explosionCircle.GetComponent<ExplosionCircle>().circleID = id;
+
+            anim.SetTrigger("EarthAttack");
 
 
             Invoke(nameof(ResetAbilityUse), circleCD);
@@ -368,6 +373,7 @@ public class Player : MonoBehaviour {
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
             shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
+
         }
         else if (readyToThrow && !shielding) {
 
@@ -375,6 +381,8 @@ public class Player : MonoBehaviour {
 
             GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
             shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
+
+            anim.SetTrigger("BlastSpell");
         }
 
         Invoke(nameof(ResetThrow), blastCD);

@@ -116,13 +116,13 @@ public class GameManager : MonoBehaviour {
 
     public void Menu() {
 
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 
 
     public void RestartScene() {
 
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 

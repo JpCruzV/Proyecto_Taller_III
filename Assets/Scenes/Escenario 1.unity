@@ -3657,6 +3657,12 @@ PrefabInstance:
       propertyPath: playerHeight
       value: 1.7
       objectReference: {fileID: 0}
+    - target: {fileID: 2284766813055035731, guid: 061ed1b976f7b4c4e923b74089600617,
+        type: 3}
+      propertyPath: fireballPrefab
+      value: 
+      objectReference: {fileID: 1771640049266071246, guid: 3f08d2d264c50384cb159f5d206f14af,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 061ed1b976f7b4c4e923b74089600617, type: 3}
 --- !u!1 &1683805641 stripped
@@ -4298,6 +4304,12 @@ PrefabInstance:
       propertyPath: playerHeight
       value: 1.7
       objectReference: {fileID: 0}
+    - target: {fileID: 2284766813055035731, guid: 061ed1b976f7b4c4e923b74089600617,
+        type: 3}
+      propertyPath: fireballPrefab
+      value: 
+      objectReference: {fileID: 1771640049266071246, guid: 3f08d2d264c50384cb159f5d206f14af,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 061ed1b976f7b4c4e923b74089600617, type: 3}
 --- !u!1001 &8046258085674272073

@@ -45,8 +45,9 @@ public class Fireball : MonoBehaviour {
             if (collision.gameObject.GetComponent<Player>() != null && collision.gameObject.GetComponent<Player>().id != fireballID)
             {
                 collision.gameObject.GetComponent<Player>().TakeDamage(damage);
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

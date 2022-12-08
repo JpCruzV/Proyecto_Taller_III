@@ -7,8 +7,10 @@ public class Player : MonoBehaviour {
 
 
     public int id;
-
     Animator anim;
+
+    [HideInInspector] public bool pressedUp = false;
+    [HideInInspector] public bool pressedDown = false;
 
 
 
@@ -86,7 +88,7 @@ public class Player : MonoBehaviour {
     [SerializeField] float crouchSpeed;
     [SerializeField] float crouchYScale;
     float startYScale;
-    bool crouching = false;
+    [HideInInspector] public bool crouching = false;
     [SerializeField] Transform modelPos;
     Vector3 modelStartPos; 
 
@@ -262,34 +264,15 @@ public class Player : MonoBehaviour {
     #region Abilities
 
 
-    [Header("Attacks references")]
-
-    [SerializeField] Transform attackPoint;
-    [SerializeField] Transform bottomAttackPoint;
-    [SerializeField] Transform explosionCircleAttackPoint;
-
-    [SerializeField] GameObject fireballPrefab;
-    [SerializeField] GameObject explosionCirclePrefab;
-    [SerializeField] GameObject blastSpellPrefab;
-    [SerializeField] GameObject laserPrefab;
-
-
     [Header("Attacks variables")]
 
     [SerializeField] float fireballCD;
-    [SerializeField] float fireballForce;
-    [SerializeField] float fireballUpForce;
-
     [SerializeField] float laserCD;
-    [SerializeField] float laserForce;
-
     [SerializeField] float circleCD;
     [SerializeField] float blastCD;
+
     bool readyToThrow = true;
     bool readyToUse = true;
-
-    bool pressedUp = false;
-    bool pressedDown = false;
 
 
 
@@ -298,35 +281,7 @@ public class Player : MonoBehaviour {
         if (context.performed && readyToThrow && !shielding) {
 
             readyToThrow = false;
-            GameObject fireball = Instantiate(fireballPrefab, attackPoint);
-            fireball.GetComponent<Fireball>().fireballID = id;
-            Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
-            Vector3 forceToAdd;
-
-            anim.SetTrigger("FireBall");
-
-
-            if (pressedUp) {
-
-                if (crouching) {
-
-                    fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-                }
-
-                forceToAdd = transform.up * fireballUpForce * 1.5f;
-                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-            }
-            else if (crouching) {
-
-                fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-                forceToAdd = transform.right * fireballForce * 1.5f;
-                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-            }
-            else {
-
-                forceToAdd = transform.right * fireballForce + transform.up * fireballUpForce;
-                firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-            }
+            anim.SetTrigger("Fireball");
 
             Invoke(nameof(ResetThrow), fireballCD);
         }
@@ -339,22 +294,21 @@ public class Player : MonoBehaviour {
         if (context.performed && grounded && readyToUse && !backwards) {
 
             readyToUse = false;
-            GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
-            explosionCircle.GetComponent<ExplosionCircle>().circleID = id;
-
-            anim.SetTrigger("EarthAttack");
-
+            anim.SetTrigger("Ice");
 
             Invoke(nameof(ResetAbilityUse), circleCD);
+        }
+        else if (context.performed && !grounded) {
+
+            readyToUse = false;
+            anim.SetTrigger("Laser");
+
+            Invoke(nameof(ResetAbilityUse), laserCD);
         }
         else if (context.performed && grounded && backwards) {
 
             shielding = true;
             rb.isKinematic = true;
-        }
-        else if (context.performed && !grounded) {
-
-            LaserBeam();
         }
         else {
 
@@ -365,40 +319,21 @@ public class Player : MonoBehaviour {
 
 
 
-    void LaserBeam() {
-
-        readyToUse = false;
-        GameObject laser = Instantiate(laserPrefab, attackPoint);
-        laser.GetComponent<Laser>().laserID = id;
-        Rigidbody laserRB = laser.GetComponent<Rigidbody>();
-        Vector3 forceToAdd;
-        forceToAdd = transform.right * laserForce + transform.up * -laserForce;
-        laserRB.AddForce(forceToAdd, ForceMode.Impulse);
-
-        Invoke(nameof(ResetAbilityUse), laserCD);
-    }
-
-
-
     public void BlastSpell(InputAction.CallbackContext context) {
 
         if (context.performed && pressedDown && !shielding && readyToThrow) {
 
             readyToThrow = false;
 
-            GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
-            shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
-            shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
+            //GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
+            //shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
+            //shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
 
         }
         else if (readyToThrow && !shielding) {
 
             readyToThrow = false;
-
-            GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
-            shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
-
-            anim.SetTrigger("BlastSpell");
+            anim.SetTrigger("Blast");
         }
 
         Invoke(nameof(ResetThrow), blastCD);

@@ -17,8 +17,10 @@ public class Player : MonoBehaviour {
         GetComponent<PlayerInput>().SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
 
         rb = GetComponent<Rigidbody>();
-        startYScale = transform.localScale.y;
+        collider = GetComponent<CapsuleCollider>();
+        startYScale = collider.height;
         rb.freezeRotation = true;
+        modelStartPos = modelPos.position;
 
         SetHp();
 
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour {
         Flip();
 
         running = anim.GetBool("isRunning");
+        anim.SetBool("isCrouching", crouching);
         backwards = anim.GetBool("WalkingBackwards");
     }
 
@@ -51,6 +54,7 @@ public class Player : MonoBehaviour {
 
 
     Rigidbody rb;
+    CapsuleCollider collider;
 
 
     [Header("Movement")]
@@ -82,7 +86,9 @@ public class Player : MonoBehaviour {
     [SerializeField] float crouchSpeed;
     [SerializeField] float crouchYScale;
     float startYScale;
-    bool crouching;
+    bool crouching = false;
+    [SerializeField] Transform modelPos;
+    Vector3 modelStartPos; 
 
 
     [Header("GroundCheck")]
@@ -172,21 +178,31 @@ public class Player : MonoBehaviour {
 
     public void Crouch(InputAction.CallbackContext context) {
 
-        if (context.performed && grounded) {
-
-            crouching = true;
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        }
-
-
         if (context.performed)
             pressedDown = true;
 
-        else {
-            pressedDown = false;
+
+        if (context.performed && grounded) {
+
+            crouching = true;
+
+            collider.height = crouchYScale;
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            modelPos.position = new Vector3(modelPos.position.x, 0f, modelPos.position.z);
+        }
+    }
+
+
+
+    public void StandingUp(InputAction.CallbackContext context) {
+
+        if (context.performed) {
+
             crouching = false;
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            pressedDown = false;
+
+            collider.height = startYScale;
+            modelPos.position = new Vector3(modelPos.position.x, modelStartPos.y, modelPos.position.z);
         }
     }
 

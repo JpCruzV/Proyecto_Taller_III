@@ -29,6 +29,15 @@
                     "id": "658125db-cf6e-4adf-a856-710ee4f15f68",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Standing",
+                    "type": "Button",
+                    "id": "cb2c2b05-80b6-4a36-bc9c-5a140564b796",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
@@ -166,6 +175,17 @@
                     "processors": "",
                     "groups": "Keyboard;Keyboard and Mouse",
                     "action": "Blast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21ef4c43-c30f-402a-8e03-c68365857add",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Standing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

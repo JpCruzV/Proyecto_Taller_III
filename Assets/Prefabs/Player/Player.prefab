@@ -144,7 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  anim: {fileID: 7450701916399661170}
   moveSpeed: 7
   otherPlayer: {fileID: 0}
   backDashDist: 3
@@ -153,6 +152,7 @@ MonoBehaviour:
   jumpCooldown: 1
   crouchSpeed: 5
   crouchYScale: 0.5
+  modelPos: {fileID: 1658881659222379186}
   playerHeight: 1.6
   floor:
     serializedVersion: 2

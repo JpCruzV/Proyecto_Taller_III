@@ -8,11 +8,7 @@ public class Player : MonoBehaviour {
 
     public int id;
 
-
-    [Header("Anims")]
-
-    [SerializeField] Animator anim;
-
+    Animator anim;
 
 
 
@@ -26,8 +22,7 @@ public class Player : MonoBehaviour {
 
         SetHp();
 
-        anim.GetComponent<Animator>();
-
+        anim = GetComponentInChildren<Animator>();
     }
 
 
@@ -36,11 +31,8 @@ public class Player : MonoBehaviour {
 
         Flip();
 
-        anim.SetFloat("Input", movement);
-        anim.SetBool("Running", running);
-        anim.SetBool("Crouching", crouching);
-        anim.SetBool("Jump", readyToJump) ;
-
+        running = anim.GetBool("isRunning");
+        backwards = anim.GetBool("WalkingBackwards");
     }
 
 
@@ -115,11 +107,18 @@ public class Player : MonoBehaviour {
 
             if ((movement > 0 && facingRight) || (movement < 0 && !facingRight)) {
 
-                backwards = false;
+                anim.SetBool("WalkingBackwards", false);
+                anim.SetBool("WalkingForward", true);
             }
             else if ((movement < 0 && facingRight) || (movement > 0 && !facingRight)) {
 
-                backwards = true;
+                anim.SetBool("WalkingForward", false);
+                anim.SetBool("WalkingBackwards", true);
+            }
+            else {
+
+                anim.SetBool("WalkingForward", false);
+                anim.SetBool("WalkingBackwards", false);
             }
 
 
@@ -127,11 +126,11 @@ public class Player : MonoBehaviour {
 
                 rb.velocity = new Vector3(movement * crouchSpeed, rb.velocity.y, 0);
             }
-            else if (running && !crouching) {
+            else if (running && !crouching && !backwards) {
 
                 rb.velocity = new Vector3(movement * moveSpeed * 2, rb.velocity.y, 0);
             }
-            else if (backwards && !running && !crouching) {
+            else if (backwards && !crouching) {
 
                 rb.velocity = new Vector3(movement * moveSpeed * .5f, rb.velocity.y, 0);
             }
@@ -156,15 +155,16 @@ public class Player : MonoBehaviour {
             else
                 transform.position = new Vector3(transform.position.x + backDashDist, transform.position.y, transform.position.z);
 
+
             Invoke(nameof(ResetBackDash), backDashCD);
         }
         else if (context.performed) {
 
-            running = true;
+            anim.SetBool("isRunning", true);
         }
         else {
 
-            running = false;
+            anim.SetBool("isRunning", false);
         }
     }
 

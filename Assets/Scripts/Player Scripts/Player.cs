@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     [HideInInspector] public bool pressedUp = false;
     [HideInInspector] public bool pressedDown = false;
 
+    [HideInInspector] public bool disableMove = false;
+
 
 
     private void Start() {
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour {
 
     void Movement() {
 
-        if (knockbackCD <= 0) {
+        if (knockbackCD <= 0 && !disableMove) {
 
 
             if ((movement > 0 && facingRight) || (movement < 0 && !facingRight)) {
@@ -153,7 +155,7 @@ public class Player : MonoBehaviour {
 
     public void BackDashAndRunning(InputAction.CallbackContext context) {
 
-        if (context.performed && backwards && readyToBackDash) {
+        if (context.performed && backwards && readyToBackDash && !disableMove) {
 
             readyToBackDash = false;
 
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour {
             pressedDown = true;
 
 
-        if (context.performed && grounded) {
+        if (context.performed && grounded && !disableMove) {
 
             crouching = true;
 
@@ -212,7 +214,7 @@ public class Player : MonoBehaviour {
 
     public void Jump(InputAction.CallbackContext context) {
 
-        if (context.performed && readyToJump && grounded && !crouching) {
+        if (context.performed && readyToJump && grounded && !crouching && !disableMove) {
 
             readyToJump = false;
 
@@ -278,7 +280,7 @@ public class Player : MonoBehaviour {
 
     public void FireballThrow(InputAction.CallbackContext context) {
 
-        if (context.performed && readyToThrow && !shielding) {
+        if (context.performed && readyToThrow && !shielding && !disableMove) {
 
             readyToThrow = false;
             anim.SetTrigger("Fireball");
@@ -291,7 +293,7 @@ public class Player : MonoBehaviour {
 
     public void SpecialAction(InputAction.CallbackContext context) {
 
-        if (context.performed && grounded && readyToUse && !backwards) {
+        if (context.performed && grounded && readyToUse && !backwards && !disableMove) {
 
             readyToUse = false;
             anim.SetTrigger("Ice");
@@ -321,7 +323,7 @@ public class Player : MonoBehaviour {
 
     public void BlastSpell(InputAction.CallbackContext context) {
 
-        if (context.performed && pressedDown && !shielding && readyToThrow) {
+        if (context.performed && pressedDown && !shielding && readyToThrow && !disableMove) {
 
             readyToThrow = false;
 
@@ -330,7 +332,7 @@ public class Player : MonoBehaviour {
             //shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
 
         }
-        else if (readyToThrow && !shielding) {
+        else if (readyToThrow && !shielding && !disableMove) {
 
             readyToThrow = false;
             anim.SetTrigger("Blast");

@@ -113,3 +113,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 10
   damage: 15
+  blastID: 0
+  touchedGround: 0

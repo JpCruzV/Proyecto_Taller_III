@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttacks : MonoBehaviour {
+public class PlayerAttacks : MonoBehaviour
+{
 
     Player player;
 
@@ -26,13 +27,15 @@ public class PlayerAttacks : MonoBehaviour {
     [SerializeField] float laserForce;
 
 
-    private void Start() {
+    private void Start()
+    {
 
         player = GetComponentInParent<Player>();
     }
 
 
-    public void FireballSpell() {
+    public void FireballSpell()
+    {
 
         GameObject fireball = Instantiate(fireballPrefab, attackPoint);
         fireball.GetComponent<Fireball>().fireballID = player.id;
@@ -40,9 +43,11 @@ public class PlayerAttacks : MonoBehaviour {
         Vector3 forceToAdd;
 
 
-        if (player.pressedUp) {
+        if (player.pressedUp)
+        {
 
-            if (player.crouching) {
+            if (player.crouching)
+            {
 
                 fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
             }
@@ -50,13 +55,15 @@ public class PlayerAttacks : MonoBehaviour {
             forceToAdd = transform.up * fireballUpForce * 1.5f;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
-        else if (player.crouching) {
+        else if (player.crouching)
+        {
 
             fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
             forceToAdd = transform.forward * fireballForce * 1.5f;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
-        else {
+        else
+        {
 
             forceToAdd = transform.forward * fireballForce + transform.up * fireballUpForce;
             firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
@@ -65,7 +72,8 @@ public class PlayerAttacks : MonoBehaviour {
 
 
 
-    public void IceSpell() {
+    public void IceSpell()
+    {
 
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
         explosionCircle.GetComponent<ExplosionCircle>().circleID = player.id;
@@ -73,7 +81,8 @@ public class PlayerAttacks : MonoBehaviour {
 
 
 
-    public void LaserBeam() {
+    public void LaserBeam()
+    {
 
         GameObject laser = Instantiate(laserPrefab, attackPoint);
         laser.GetComponent<Laser>().laserID = player.id;
@@ -84,9 +93,24 @@ public class PlayerAttacks : MonoBehaviour {
     }
 
 
-    public void BlastSpell() {
+    public void BlastSpell()
+    {
 
         GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
         shotgunSpell.GetComponent<ShotgunSpell>().blastID = player.id;
+    }
+
+
+
+    public void DisableMovement() {
+
+        player.disableMove = true;
+    }
+
+
+
+    public void EnableMovement() {
+
+        player.disableMove = false;
     }
 }

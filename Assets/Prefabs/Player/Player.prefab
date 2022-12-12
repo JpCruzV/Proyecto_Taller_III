@@ -146,6 +146,7 @@ MonoBehaviour:
   id: 1
   pressedUp: 0
   pressedDown: 0
+  disableMove: 0
   moveSpeed: 7
   otherPlayer: {fileID: 0}
   backDashDist: 3

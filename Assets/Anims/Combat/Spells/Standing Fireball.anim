@@ -113085,7 +113085,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.5333333
-    functionName: FireballSpell
+    functionName: StandingFireballSpell
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

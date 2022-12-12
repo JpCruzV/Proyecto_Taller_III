@@ -286,7 +286,19 @@ public class Player : MonoBehaviour {
         if (context.performed && readyToThrow && !shielding && !disableMove) {
 
             readyToThrow = false;
-            anim.SetTrigger("Fireball");
+
+            if (pressedUp) {
+
+                anim.SetTrigger("UpwardsFireball");
+            }
+            else if (crouching && !pressedUp) {
+
+                anim.SetTrigger("CrouchingFireball");
+            }
+            else {
+
+                anim.SetTrigger("Fireball");
+            }
 
             Invoke(nameof(ResetThrow), fireballCD);
         }
@@ -330,15 +342,15 @@ public class Player : MonoBehaviour {
 
             readyToThrow = false;
 
-            //GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
-            //shotgunSpell.GetComponent<ShotgunSpell>().blastID = id;
-            //shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
+            if (pressedDown) {
 
-        }
-        else if (readyToThrow && !shielding && !disableMove) {
+                //falta implementacion
+                anim.SetTrigger("DownwardsBlast");
+            }
+            else {
 
-            readyToThrow = false;
-            anim.SetTrigger("Blast");
+                anim.SetTrigger("Blast");
+            }
         }
 
         Invoke(nameof(ResetThrow), blastCD);

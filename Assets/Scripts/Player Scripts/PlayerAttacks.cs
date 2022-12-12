@@ -27,53 +27,56 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] float laserForce;
 
 
-    private void Start()
-    {
+    private void Start() {
 
         player = GetComponentInParent<Player>();
     }
 
 
-    public void FireballSpell()
-    {
+    public void StandingFireballSpell() { 
+
+        GameObject fireball = Instantiate(fireballPrefab, attackPoint);
+        fireball.GetComponent<Fireball>().fireballID = player.id;
+        Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
+        Vector3 forceToAdd;
+        forceToAdd = transform.forward * fireballForce + transform.up * fireballUpForce;
+        firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
+    }
+
+
+
+    public void PressedUpFireballSpell() {
 
         GameObject fireball = Instantiate(fireballPrefab, attackPoint);
         fireball.GetComponent<Fireball>().fireballID = player.id;
         Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
         Vector3 forceToAdd;
 
-
-        if (player.pressedUp)
-        {
-
-            if (player.crouching)
-            {
-
-                fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-            }
-
-            forceToAdd = transform.up * fireballUpForce * 1.5f;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-        }
-        else if (player.crouching)
-        {
+        if (player.crouching) {
 
             fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
-            forceToAdd = transform.forward * fireballForce * 1.5f;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
         }
-        else
-        {
 
-            forceToAdd = transform.forward * fireballForce + transform.up * fireballUpForce;
-            firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
-        }
+        forceToAdd = transform.up * fireballUpForce * 1.5f;
+        firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
     }
 
 
 
-    public void IceSpell()
-    {
+    public void CrouchingFireballSpell() { 
+
+        GameObject fireball = Instantiate(fireballPrefab, attackPoint);
+        fireball.GetComponent<Fireball>().fireballID = player.id;
+        Rigidbody firaballRb = fireball.GetComponent<Rigidbody>();
+        Vector3 forceToAdd;
+        fireball.transform.localScale = new Vector3(.5f, .5f, .5f);
+        forceToAdd = transform.forward * fireballForce * 1.5f;
+        firaballRb.AddForce(forceToAdd, ForceMode.Impulse);
+    }
+
+
+
+    public void IceSpell() {
 
         GameObject explosionCircle = Instantiate(explosionCirclePrefab, explosionCircleAttackPoint);
         explosionCircle.GetComponent<ExplosionCircle>().circleID = player.id;
@@ -81,8 +84,7 @@ public class PlayerAttacks : MonoBehaviour
 
 
 
-    public void LaserBeam()
-    {
+    public void LaserBeam() {
 
         GameObject laser = Instantiate(laserPrefab, attackPoint);
         laser.GetComponent<Laser>().laserID = player.id;
@@ -93,11 +95,19 @@ public class PlayerAttacks : MonoBehaviour
     }
 
 
-    public void BlastSpell()
-    {
+    public void BlastSpell() {
 
         GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
         shotgunSpell.GetComponent<ShotgunSpell>().blastID = player.id;
+    }
+
+
+
+    public void PressedDownBlastSpell() {
+
+        GameObject shotgunSpell = Instantiate(blastSpellPrefab, bottomAttackPoint.position, Quaternion.Euler(0f, 0f, -90f), this.transform);
+        shotgunSpell.GetComponent<ShotgunSpell>().blastID = player.id;
+        shotgunSpell.GetComponent<ShotgunSpell>().touchedGround = true;
     }
 
 

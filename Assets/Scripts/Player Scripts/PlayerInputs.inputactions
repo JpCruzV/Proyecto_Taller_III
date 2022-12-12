@@ -219,7 +219,16 @@
                     "id": "03e43aab-cfa5-468a-8766-3e0420268233",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Standing",
+                    "type": "Button",
+                    "id": "22c34244-51db-43df-827c-e6c14ab51025",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 },
                 {
@@ -356,6 +365,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Blast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dfc99ae7-c8b8-4ce9-a7d2-847c325069b9",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Standing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

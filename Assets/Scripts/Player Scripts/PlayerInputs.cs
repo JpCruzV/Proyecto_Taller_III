@@ -241,7 +241,16 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""id"": ""03e43aab-cfa5-468a-8766-3e0420268233"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Standing"",
+                    ""type"": ""Button"",
+                    ""id"": ""22c34244-51db-43df-827c-e6c14ab51025"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -380,6 +389,17 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""action"": ""Blast"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dfc99ae7-c8b8-4ce9-a7d2-847c325069b9"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Standing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -429,6 +449,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
         m_Player2_BackDashAndRunning = m_Player2.FindAction("BackDashAndRunning", throwIfNotFound: true);
         m_Player2_Crouch = m_Player2.FindAction("Crouch", throwIfNotFound: true);
+        m_Player2_Standing = m_Player2.FindAction("Standing", throwIfNotFound: true);
         m_Player2_Jump = m_Player2.FindAction("Jump", throwIfNotFound: true);
         m_Player2_Fireball = m_Player2.FindAction("Fireball", throwIfNotFound: true);
         m_Player2_Special = m_Player2.FindAction("Special", throwIfNotFound: true);
@@ -584,6 +605,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player2_Movement;
     private readonly InputAction m_Player2_BackDashAndRunning;
     private readonly InputAction m_Player2_Crouch;
+    private readonly InputAction m_Player2_Standing;
     private readonly InputAction m_Player2_Jump;
     private readonly InputAction m_Player2_Fireball;
     private readonly InputAction m_Player2_Special;
@@ -595,6 +617,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player2_Movement;
         public InputAction @BackDashAndRunning => m_Wrapper.m_Player2_BackDashAndRunning;
         public InputAction @Crouch => m_Wrapper.m_Player2_Crouch;
+        public InputAction @Standing => m_Wrapper.m_Player2_Standing;
         public InputAction @Jump => m_Wrapper.m_Player2_Jump;
         public InputAction @Fireball => m_Wrapper.m_Player2_Fireball;
         public InputAction @Special => m_Wrapper.m_Player2_Special;
@@ -617,6 +640,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCrouch;
+                @Standing.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnStanding;
+                @Standing.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnStanding;
+                @Standing.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnStanding;
                 @Jump.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnJump;
@@ -642,6 +668,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Standing.started += instance.OnStanding;
+                @Standing.performed += instance.OnStanding;
+                @Standing.canceled += instance.OnStanding;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -692,6 +721,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnBackDashAndRunning(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnStanding(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFireball(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);

@@ -4962,10 +4962,10 @@ VisualEffect:
       - m_Value: 0.05
         m_Name: Cone_topRadius
         m_Overridden: 1
-      - m_Value: 0.47
+      - m_Value: 0.74
         m_Name: LifeTime
         m_Overridden: 1
-      - m_Value: -0.21
+      - m_Value: 0.22
         m_Name: Cone_baseRadius
         m_Overridden: 1
     m_Vector2f:

@@ -154,7 +154,7 @@ MonoBehaviour:
   jumpForce: 15
   jumpCooldown: 1
   crouchSpeed: 3
-  crouchYScale: 0.8
+  crouchYScale: 1.8
   crouching: 0
   modelPos: {fileID: 1625927642357371842}
   playerHeight: 1.7

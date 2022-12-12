@@ -36,10 +36,13 @@ public class Player : MonoBehaviour {
     private void Update() {
 
         Flip();
+        Vector3 velocity = rb.velocity.normalized;
 
+        backwards = anim.GetBool("Backwards");
         running = anim.GetBool("isRunning");
         anim.SetBool("isCrouching", crouching);
-        backwards = anim.GetBool("WalkingBackwards");
+        anim.SetBool("isGrounded", grounded);
+        anim.SetFloat("yVelocity", velocity.y);
     }
 
 
@@ -117,22 +120,22 @@ public class Player : MonoBehaviour {
 
             if ((movement > 0 && facingRight) || (movement < 0 && !facingRight)) {
 
-                anim.SetBool("WalkingBackwards", false);
-                anim.SetBool("WalkingForward", true);
+                anim.SetBool("Backwards", false);
+                anim.SetBool("Forward", true);
             }
             else if ((movement < 0 && facingRight) || (movement > 0 && !facingRight)) {
 
-                anim.SetBool("WalkingForward", false);
-                anim.SetBool("WalkingBackwards", true);
+                anim.SetBool("Forward", false);
+                anim.SetBool("Backwards", true);
             }
             else {
 
-                anim.SetBool("WalkingForward", false);
-                anim.SetBool("WalkingBackwards", false);
+                anim.SetBool("Forward", false);
+                anim.SetBool("Backwards", false);
             }
 
 
-            if (crouching) {
+            if (crouching && !running) {
 
                 rb.velocity = new Vector3(movement * crouchSpeed, rb.velocity.y, 0);
             }
@@ -200,13 +203,13 @@ public class Player : MonoBehaviour {
 
     public void StandingUp(InputAction.CallbackContext context) {
 
-        if (context.performed) {
+        if (context.performed && grounded) {
 
             crouching = false;
             pressedDown = false;
 
             collider.height = startYScale;
-            modelPos.position = new Vector3(modelPos.position.x, modelStartPos.y, modelPos.position.z);
+            modelPos.position = new Vector3(modelPos.position.x, -.1f, modelPos.position.z);
         }
     }
 

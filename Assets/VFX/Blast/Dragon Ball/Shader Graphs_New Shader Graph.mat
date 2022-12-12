@@ -108,10 +108,10 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.7924528, g: 0.13830544, b: 0.13830544, a: 1}
+    - _Color: {r: 0.10012458, g: 0.103861116, b: 0.8490566, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainTextSpeed: {r: 0, g: 8.77, b: 0, a: 0}
-    - _MainTextTilling: {r: 2.19, g: -0.87, b: 0, a: 0}
+    - _MainTextSpeed: {r: 0, g: -2, b: 0, a: 0}
+    - _MainTextTilling: {r: 2, g: 1.5, b: 0, a: 0}
     - _Vector4: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -338,11 +338,11 @@ public class Player : MonoBehaviour {
 
     public void BlastSpell(InputAction.CallbackContext context) {
 
-        if (context.performed && pressedDown && !shielding && readyToThrow && !disableMove) {
+        if (context.performed && !shielding && readyToThrow && !disableMove) {
 
             readyToThrow = false;
 
-            if (pressedDown) {
+            if (pressedDown && !grounded) {
 
                 //falta implementacion
                 anim.SetTrigger("DownwardsBlast");

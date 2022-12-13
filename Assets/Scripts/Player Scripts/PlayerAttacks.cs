@@ -10,6 +10,7 @@ public class PlayerAttacks : MonoBehaviour
     [Header("Attacks references")]
 
     [SerializeField] Transform attackPoint;
+    [SerializeField] Transform blastPoint;
     [SerializeField] Transform bottomAttackPoint;
     [SerializeField] Transform explosionCircleAttackPoint;
 
@@ -97,7 +98,7 @@ public class PlayerAttacks : MonoBehaviour
 
     public void BlastSpell() {
 
-        GameObject shotgunSpell = Instantiate(blastSpellPrefab, attackPoint);
+        GameObject shotgunSpell = Instantiate(blastSpellPrefab, blastPoint);
         shotgunSpell.GetComponent<ShotgunSpell>().blastID = player.id;
     }
 

@@ -29,6 +29,16 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] float laserForce;
 
 
+
+    [Header("Audio")]
+
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip fireballAudio;
+    [SerializeField] AudioClip IceAudio;
+    [SerializeField] AudioClip blastAudio;
+    [SerializeField] AudioClip laserAudio;
+
+
     private void Start() {
 
         player = GetComponentInParent<Player>();
@@ -38,6 +48,32 @@ public class PlayerAttacks : MonoBehaviour
     private void Update() {
 
         transform.position = new Vector3(model.position.x, transform.position.y, model.position.z);
+    }
+
+
+    public void PlayFireballAudio() {
+
+        source.PlayOneShot(fireballAudio);
+    }
+
+
+    public void PlayIceAudio() {
+
+        source.PlayOneShot(IceAudio);
+    }
+
+
+    public void PlayBlastAudio() {
+
+        source.PlayOneShot(blastAudio);
+    }
+
+
+
+    public void PlayLaserAudio()
+    {
+
+        source.PlayOneShot(laserAudio);
     }
 
 
@@ -98,7 +134,7 @@ public class PlayerAttacks : MonoBehaviour
         laser.GetComponent<Laser>().laserID = player.id;
         Rigidbody laserRB = laser.GetComponent<Rigidbody>();
         Vector3 forceToAdd;
-        forceToAdd = transform.right * laserForce + transform.up * -laserForce;
+        forceToAdd = transform.forward * laserForce + transform.up * -laserForce;
         laserRB.AddForce(forceToAdd, ForceMode.Impulse);
     }
 

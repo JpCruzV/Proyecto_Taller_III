@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttacks : MonoBehaviour
 {
 
+    [SerializeField] Transform model;
     Player player;
 
     [Header("Attacks references")]
@@ -31,6 +32,12 @@ public class PlayerAttacks : MonoBehaviour
     private void Start() {
 
         player = GetComponentInParent<Player>();
+    }
+
+
+    private void Update() {
+
+        transform.position = new Vector3(model.position.x, transform.position.y, model.position.z);
     }
 
 

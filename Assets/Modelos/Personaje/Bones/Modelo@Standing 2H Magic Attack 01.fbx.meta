@@ -500,38 +500,38 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: _Modelo(Clone)
+    - name: Modelo@Standing Idle(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Body_Legs
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.0000000095088035, y: 0.0000000027567149, z: 4.491259e-16}
       rotation: {x: 0.00000008146034, y: -4.638423e-10, z: 1.1641532e-10, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: Body_Arms
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.000000023841855, y: 0.0000000834465, z: 0.042135093}
       rotation: {x: 0.00000008146034, y: 0.0000000037252894, z: 4.815828e-16, w: 1}
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: Body_Feet
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: 0.0037705563, y: 0.11605898, z: -0.039860368}
       rotation: {x: 0.18931979, y: -4.7749366e-10, z: 2.6495538e-11, w: 0.9819155}
       scale: {x: 1, y: 1, z: 0.99999994}
     - name: Body_Hands
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.0000000095088035, y: 0.0000000027567149, z: 0.042135093}
       rotation: {x: 0.00000008146034, y: -4.638423e-10, z: 1.1641532e-10, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: Gorro
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.0000000095088035, y: 0.0000000027567149, z: 4.491259e-16}
       rotation: {x: 0.00000008146034, y: -4.638423e-10, z: 1.1641532e-10, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: Group
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -576,32 +576,32 @@ ModelImporter:
       rotation: {x: 1.4210855e-14, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: CABEZA RINOCERONTE
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.005941143, y: 1.7201085, z: -0.11946999}
       rotation: {x: -0.00000002247647, y: 0.7071067, z: 0.7071068, w: 0.0000000842937}
       scale: {x: 13.354921, y: 13.354921, z: 13.354921}
     - name: Cube
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: 0.057488292, y: 1.7675203, z: 0.0028332677}
       rotation: {x: 0.31789276, y: 0.6316203, z: 0.6316203, w: -0.3178928}
       scale: {x: 0.90304726, y: 0.90304726, z: 0.90304744}
     - name: Cylinder
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.055743113, y: 1.75409, z: 0.01754742}
       rotation: {x: -0.032215256, y: 0.9858155, z: -0.16269852, w: -0.025674587}
       scale: {x: 1.12624, y: 1.1262401, z: 1.12624}
     - name: PELO
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.007941609, y: 1.8834776, z: -0.1253295}
       rotation: {x: -0.00000002247647, y: 0.7071067, z: 0.7071068, w: 0.0000000842937}
       scale: {x: -2.8470397, y: -2.8470397, z: -2.8470397}
     - name: Torus.001
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: -0.0039174967, y: 1.6601689, z: 0.17428575}
       rotation: {x: -0.37535608, y: 0, z: -0, w: 0.9268807}
       scale: {x: 66.7549, y: 66.7549, z: 66.7549}
     - name: Group.001
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: 1.4518962, y: 0.22579277, z: 0.028746758}
       rotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -646,7 +646,7 @@ ModelImporter:
       rotation: {x: 2.1316282e-14, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: _Modelo(Clone)
+      parentName: Modelo@Standing Idle(Clone)
       position: {x: 0.0000000018626451, y: 0.90749556, z: 0.018029956}
       rotation: {x: -0.0000000029407745, y: -4.6384258e-10, z: 0.0000000015716068,
         w: 1}
@@ -986,7 +986,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3e6ab31d813b6fe4897f1a01a3ddc785,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d553cd12462e71949a91277292905fc8,
     type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3

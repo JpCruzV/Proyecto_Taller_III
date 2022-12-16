@@ -156,6 +156,13 @@ public class PlayerAttacks : MonoBehaviour
 
 
 
+    public void Jump() {
+
+        player.doJump = true;
+    }
+
+
+
     public void DisableMovement() {
 
         player.disableMove = true;

@@ -86,6 +86,7 @@ public class Player : MonoBehaviour {
     [SerializeField] float jumpForce;
     [SerializeField] float jumpCooldown;
     bool readyToJump = true;
+    [HideInInspector] public bool doJump = false;
 
 
     [Header("Crouching")]
@@ -150,6 +151,14 @@ public class Player : MonoBehaviour {
             else {
 
                 rb.velocity = new Vector3(movement * moveSpeed, rb.velocity.y, 0);
+            }
+
+            if (doJump) {
+
+                doJump = false;
+
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             }
         }
     }
@@ -219,10 +228,9 @@ public class Player : MonoBehaviour {
 
         if (context.performed && readyToJump && grounded && !crouching && !disableMove) {
 
-            readyToJump = false;
+            anim.SetTrigger("Jumped");
 
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            readyToJump = false;
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }

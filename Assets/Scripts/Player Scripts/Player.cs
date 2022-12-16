@@ -43,6 +43,8 @@ public class Player : MonoBehaviour {
         anim.SetBool("isCrouching", crouching);
         anim.SetBool("isGrounded", grounded);
         anim.SetFloat("yVelocity", velocity.y);
+
+        Debug.Log(velocity.y);
     }
 
 
